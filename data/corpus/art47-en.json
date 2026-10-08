@@ -1,0 +1,27 @@
+{
+ "doc_id": "art47-en",
+ "title": "Force",
+ "lang": "en",
+ "paragraphs": [
+  {
+   "id": "art47-p00",
+   "text": "Aristotle provided a philosophical discussion of the concept of a force as an integral part of Aristotelian cosmology. In Aristotle's view, the terrestrial sphere contained four elements that come to rest at different \"natural places\" therein. Aristotle believed that motionless objects on Earth, those composed mostly of the elements earth and water, to be in their natural place on the ground and that they will stay that way if left alone. He distinguished between the innate tendency of objects to find their \"natural place\" (e.g., for heavy bodies to fall), which led to \"natural motion\", and unnatural or forced motion, which required continued application of a force. This theory, based on the everyday experience of how objects move, such as the constant application of a force needed to keep a cart moving, had conceptual trouble accounting for the behavior of projectiles, such as the flight of arrows. The place where the archer moves the projectile was at the start of the flight, and while the projectile sailed through the air, no discernible efficient cause acts on it. Aristotle was aware of this problem and proposed that the air displaced through the projectile's path carries the projectile to its target. This explanation demands a continuum like air for change of place in general."
+  },
+  {
+   "id": "art47-p01",
+   "text": "The development of fundamental theories for forces proceeded along the lines of unification of disparate ideas. For example, Isaac Newton unified the force responsible for objects falling at the surface of the Earth with the force responsible for the orbits of celestial mechanics in his universal theory of gravitation. Michael Faraday and James Clerk Maxwell demonstrated that electric and magnetic forces were unified through one consistent theory of electromagnetism. In the 20th century, the development of quantum mechanics led to a modern understanding that the first three fundamental forces (all except gravity) are manifestations of matter (fermions) interacting by exchanging virtual particles called gauge bosons. This standard model of particle physics posits a similarity between the forces and led scientists to predict the unification of the weak and electromagnetic forces in electroweak theory subsequently confirmed by observation. The complete formulation of the standard model predicts an as yet unobserved Higgs mechanism, but observations such as neutrino oscillations indicate that the standard model is incomplete. A Grand Unified Theory allowing for the combination of the electroweak interaction with the strong force is held out as a possibility with candidate theories such as supersymmetry proposed to accommodate some of the outstanding unsolved problems in physics. Physicists are still attempting to develop self-consistent unification models that would combine all four fundamental interactions into a theory of everything. Einstein tried and failed at this endeavor, but currently the most popular approach to answering this question is string theory.:212–219"
+  },
+  {
+   "id": "art47-p02",
+   "text": "Since then, and so far, general relativity has been acknowledged as the theory that best explains gravity. In GR, gravitation is not viewed as a force, but rather, objects moving freely in gravitational fields travel under their own inertia in straight lines through curved space-time – defined as the shortest space-time path between two space-time events. From the perspective of the object, all motion occurs as if there were no gravitation whatsoever. It is only when observing the motion in a global sense that the curvature of space-time can be observed and the force is inferred from the object's curved path. Thus, the straight line path in space-time is seen as a curved line in space, and it is called the ballistic trajectory of the object. For example, a basketball thrown from the ground moves in a parabola, as it is in a uniform gravitational field. Its space-time trajectory (when the extra ct dimension is added) is almost a straight line, slightly curved (with the radius of curvature of the order of few light-years). The time derivative of the changing momentum of the object is what we label as \"gravitational force\"."
+  },
+  {
+   "id": "art47-p03",
+   "text": "Through combining the definition of electric current as the time rate of change of electric charge, a rule of vector multiplication called Lorentz's Law describes the force on a charge moving in a magnetic field. The connection between electricity and magnetism allows for the description of a unified electromagnetic force that acts on a charge. This force can be written as a sum of the electrostatic force (due to the electric field) and the magnetic force (due to the magnetic field). Fully stated, this is the law:"
+  },
+  {
+   "id": "art47-p04",
+   "text": "where  is the relevant cross-sectional area for the volume for which the stress-tensor is being calculated. This formalism includes pressure terms associated with forces that act normal to the cross-sectional area (the matrix diagonals of the tensor) as well as shear terms associated with forces that act parallel to the cross-sectional area (the off-diagonal elements). The stress tensor accounts for forces that cause all strains (deformations) including also tensile stresses and compressions.:133–134:38-1–38-11"
+  }
+ ]
+}

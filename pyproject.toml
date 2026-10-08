@@ -1,0 +1,31 @@
+[project]
+name = "rag"
+version = "0.1.0"
+description = "Toy RAG Q&A bot (EN + RU) over XQuAD"
+requires-python = ">=3.10"
+dependencies = [
+    "datasets>=5.1.0",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "tokenizers>=0.23.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "httpx>=0.27",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: needs real Qdrant and/or real models",
+    "llm: needs a running vLLM server (skipped automatically if unreachable)",
+]

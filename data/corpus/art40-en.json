@@ -1,0 +1,27 @@
+{
+ "doc_id": "art40-en",
+ "title": "Prime number",
+ "lang": "en",
+ "paragraphs": [
+  {
+   "id": "art40-p00",
+   "text": "A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself. A natural number greater than 1 that is not a prime number is called a composite number. For example, 5 is prime because 1 and 5 are its only positive integer factors, whereas 6 is composite because it has the divisors 2 and 3 in addition to 1 and 6. The fundamental theorem of arithmetic establishes the central role of primes in number theory: any integer greater than 1 can be expressed as a product of primes that is unique up to ordering. The uniqueness in this theorem requires excluding 1 as a prime because one can include arbitrarily many instances of 1 in any factorization, e.g., 3, 1 · 3, 1 · 1 · 3, etc. are all valid factorizations of 3."
+  },
+  {
+   "id": "art40-p01",
+   "text": "The property of being prime (or not) is called primality. A simple but slow method of verifying the primality of a given number n is known as trial division. It consists of testing whether n is a multiple of any integer between 2 and . Algorithms much more efficient than trial division have been devised to test the primality of large numbers. These include the Miller–Rabin primality test, which is fast but has a small probability of error, and the AKS primality test, which always produces the correct answer in polynomial time but is too slow to be practical. Particularly fast methods are available for numbers of special forms, such as Mersenne numbers. As of January 2016[update], the largest known prime number has 22,338,618 decimal digits."
+  },
+  {
+   "id": "art40-p02",
+   "text": "A third type of conjectures concerns aspects of the distribution of primes. It is conjectured that there are infinitely many twin primes, pairs of primes with difference 2 (twin prime conjecture). Polignac's conjecture is a strengthening of that conjecture, it states that for every positive integer n, there are infinitely many pairs of consecutive primes that differ by 2n. It is conjectured there are infinitely many primes of the form n2 + 1. These conjectures are special cases of the broad Schinzel's hypothesis H. Brocard's conjecture says that there are always at least four primes between the squares of consecutive primes greater than 2. Legendre's conjecture states that there is a prime number between n2 and (n + 1)2 for every positive integer n. It is implied by the stronger Cramér's conjecture."
+  },
+  {
+   "id": "art40-p03",
+   "text": "The concept of prime number is so important that it has been generalized in different ways in various branches of mathematics. Generally, \"prime\" indicates minimality or indecomposability, in an appropriate sense. For example, the prime field is the smallest subfield of a field F containing both 0 and 1. It is either Q or the finite field with p elements, whence the name. Often a second, additional meaning is intended by using the word prime, namely that any object can be, essentially uniquely, decomposed into its prime components. For example, in knot theory, a prime knot is a knot that is indecomposable in the sense that it cannot be written as the knot sum of two nontrivial knots. Any knot can be uniquely expressed as a connected sum of prime knots. Prime models and prime 3-manifolds are other examples of this type."
+  },
+  {
+   "id": "art40-p04",
+   "text": "In particular, this norm gets smaller when a number is multiplied by p, in sharp contrast to the usual absolute value (also referred to as the infinite prime). While completing Q (roughly, filling the gaps) with respect to the absolute value yields the field of real numbers, completing with respect to the p-adic norm |−|p yields the field of p-adic numbers. These are essentially all possible ways to complete Q, by Ostrowski's theorem. Certain arithmetic questions related to Q or more general global fields may be transferred back and forth to the completed (or local) fields. This local-global principle again underlines the importance of primes to number theory."
+  }
+ ]
+}

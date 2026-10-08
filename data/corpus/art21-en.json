@@ -1,0 +1,27 @@
+{
+ "doc_id": "art21-en",
+ "title": "Geology",
+ "lang": "en",
+ "paragraphs": [
+  {
+   "id": "art21-p00",
+   "text": "The following four timelines show the geologic time scale. The first shows the entire time from the formation of the Earth to the present, but this compresses the most recent eon. Therefore, the second scale shows the most recent eon with an expanded scale. The second scale compresses the most recent era, so the most recent era is expanded in the third scale. Since the Quaternary is a very short period with short epochs, it is further expanded in the fourth scale. The second, third, and fourth timelines are therefore each subsections of their preceding timeline as indicated by asterisks. The Holocene (the latest epoch) is too small to be shown clearly on the third timeline on the right, another reason for expanding the fourth scale. The Pleistocene (P) epoch. Q stands for the Quaternary period."
+  },
+  {
+   "id": "art21-p01",
+   "text": "The principle of faunal succession is based on the appearance of fossils in sedimentary rocks. As organisms exist at the same time period throughout the world, their presence or (sometimes) absence may be used to provide a relative age of the formations in which they are found. Based on principles laid out by William Smith almost a hundred years before the publication of Charles Darwin's theory of evolution, the principles of succession were developed independently of evolutionary thought. The principle becomes quite complex, however, given the uncertainties of fossilization, the localization of fossil types due to lateral changes in habitat (facies change in sedimentary strata), and that not all fossils may be found globally at the same time."
+  },
+  {
+   "id": "art21-p02",
+   "text": "In the laboratory, stratigraphers analyze samples of stratigraphic sections that can be returned from the field, such as those from drill cores. Stratigraphers also analyze data from geophysical surveys that show the locations of stratigraphic units in the subsurface. Geophysical data and well logs can be combined to produce a better view of the subsurface, and stratigraphers often use computer programs to do this in three dimensions. Stratigraphers can then use these data to reconstruct ancient processes occurring on the surface of the Earth, interpret past environments, and locate areas for water, coal, and hydrocarbon extraction."
+  },
+  {
+   "id": "art21-p03",
+   "text": "Some modern scholars, such as Fielding H. Garrison, are of the opinion that the origin of the science of geology can be traced to Persia after the Muslim conquests had come to an end. Abu al-Rayhan al-Biruni (973–1048 CE) was one of the earliest Persian geologists, whose works included the earliest writings on the geology of India, hypothesizing that the Indian subcontinent was once a sea. Drawing from Greek and Indian scientific literature that were not destroyed by the Muslim conquests, the Persian scholar Ibn Sina (Avicenna, 981–1037) proposed detailed explanations for the formation of mountains, the origin of earthquakes, and other topics central to modern geology, which provided an essential foundation for the later development of the science. In China, the polymath Shen Kuo (1031–1095) formulated a hypothesis for the process of land formation: based on his observation of fossil animal shells in a geological stratum in a mountain hundreds of miles from the ocean, he inferred that the land was formed by erosion of the mountains and by deposition of silt."
+  },
+  {
+   "id": "art21-p04",
+   "text": "James Hutton is often viewed as the first modern geologist. In 1785 he presented a paper entitled Theory of the Earth to the Royal Society of Edinburgh. In his paper, he explained his theory that the Earth must be much older than had previously been supposed in order to allow enough time for mountains to be eroded and for sediments to form new rocks at the bottom of the sea, which in turn were raised up to become dry land. Hutton published a two-volume version of his ideas in 1795 (Vol. 1, Vol. 2)."
+  }
+ ]
+}

@@ -1,0 +1,1254 @@
+- doc_id: art00-en
+  title: Super Bowl 50
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art00-en
+  acl:
+  - all-employees
+  updated_at: 2025-03-28
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art00-ru
+  title: Super Bowl 50
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art00-ru
+  acl:
+  - all-employees
+  updated_at: 2025-03-28
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art01-en
+  title: Warsaw
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art01-en
+  acl:
+  - all-employees
+  updated_at: 2022-04-04
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art01-ru
+  title: Warsaw
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art01-ru
+  acl:
+  - all-employees
+  updated_at: 2022-04-04
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art02-en
+  title: Normans
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art02-en
+  acl:
+  - all-employees
+  updated_at: 2022-06-13
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art02-ru
+  title: Normans
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art02-ru
+  acl:
+  - all-employees
+  updated_at: 2022-06-13
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art03-en
+  title: Nikola Tesla
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art03-en
+  acl:
+  - all-employees
+  updated_at: 2024-02-18
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art03-en-old
+  title: Nikola Tesla
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art03-en-old
+  acl:
+  - all-employees
+  updated_at: 2022-04-05
+  authority: official
+  status: archived
+  superseded_by: art03-en
+- doc_id: art03-ru
+  title: Nikola Tesla
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art03-ru
+  acl:
+  - all-employees
+  updated_at: 2024-02-18
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art03-ru-old
+  title: Nikola Tesla
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art03-ru-old
+  acl:
+  - all-employees
+  updated_at: 2021-10-07
+  authority: official
+  status: archived
+  superseded_by: art03-ru
+- doc_id: art04-en
+  title: Computational complexity theory
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art04-en
+  acl:
+  - all-employees
+  updated_at: 2024-01-29
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art04-en-dup
+  title: Computational complexity theory
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art04-en-dup
+  acl:
+  - all-employees
+  updated_at: 2023-12-29
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art04-ru
+  title: Computational complexity theory
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art04-ru
+  acl:
+  - all-employees
+  updated_at: 2024-01-29
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art04-ru-dup
+  title: Computational complexity theory
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art04-ru-dup
+  acl:
+  - all-employees
+  updated_at: 2023-03-06
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art05-en
+  title: Teacher
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art05-en
+  acl:
+  - all-employees
+  updated_at: 2025-06-01
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art05-ru
+  title: Teacher
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art05-ru
+  acl:
+  - all-employees
+  updated_at: 2025-06-01
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art06-en
+  title: Martin Luther
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art06-en
+  acl:
+  - all-employees
+  updated_at: 2022-12-01
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art06-ru
+  title: Martin Luther
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art06-ru
+  acl:
+  - all-employees
+  updated_at: 2022-12-01
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art07-en
+  title: Southern California
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art07-en
+  acl:
+  - all-employees
+  updated_at: 2023-07-07
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art07-ru
+  title: Southern California
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art07-ru
+  acl:
+  - all-employees
+  updated_at: 2023-07-07
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art08-en
+  title: Sky (United Kingdom)
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art08-en
+  acl:
+  - all-employees
+  updated_at: 2026-04-23
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art08-ru
+  title: Sky (United Kingdom)
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art08-ru
+  acl:
+  - all-employees
+  updated_at: 2026-04-23
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art09-en
+  title: Victoria (Australia)
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art09-en
+  acl:
+  - research
+  updated_at: 2022-03-07
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art09-ru
+  title: Victoria (Australia)
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art09-ru
+  acl:
+  - research
+  updated_at: 2022-03-07
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art10-en
+  title: Huguenot
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art10-en
+  acl:
+  - hr-team
+  updated_at: 2023-07-03
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art10-ru
+  title: Huguenot
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art10-ru
+  acl:
+  - hr-team
+  updated_at: 2023-07-03
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art11-en
+  title: Steam engine
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art11-en
+  acl:
+  - all-employees
+  updated_at: 2025-03-07
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art11-en-slack
+  title: Steam engine (Slack)
+  lang: en
+  source: slack
+  url: https://slack.acme.local/art11-en-slack
+  acl:
+  - all-employees
+  updated_at: 2025-06-01
+  authority: informal
+  status: active
+  superseded_by: null
+- doc_id: art11-ru
+  title: Steam engine
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art11-ru
+  acl:
+  - all-employees
+  updated_at: 2025-03-07
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art11-ru-slack
+  title: Steam engine (Slack)
+  lang: ru
+  source: slack
+  url: https://slack.acme.local/art11-ru-slack
+  acl:
+  - all-employees
+  updated_at: 2025-05-21
+  authority: informal
+  status: active
+  superseded_by: null
+- doc_id: art12-en
+  title: Oxygen
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art12-en
+  acl:
+  - all-employees
+  updated_at: 2025-09-04
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art12-en-old
+  title: Oxygen
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art12-en-old
+  acl:
+  - all-employees
+  updated_at: 2023-03-08
+  authority: official
+  status: archived
+  superseded_by: art12-en
+- doc_id: art12-ru
+  title: Oxygen
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art12-ru
+  acl:
+  - all-employees
+  updated_at: 2025-09-04
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art12-ru-old
+  title: Oxygen
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art12-ru-old
+  acl:
+  - all-employees
+  updated_at: 2023-06-22
+  authority: official
+  status: archived
+  superseded_by: art12-ru
+- doc_id: art13-en
+  title: 1973 oil crisis
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art13-en
+  acl:
+  - all-employees
+  updated_at: 2023-06-27
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art13-ru
+  title: 1973 oil crisis
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art13-ru
+  acl:
+  - all-employees
+  updated_at: 2023-06-27
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art14-en
+  title: Apollo program
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art14-en
+  acl:
+  - all-employees
+  updated_at: 2026-03-06
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art14-ru
+  title: Apollo program
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art14-ru
+  acl:
+  - all-employees
+  updated_at: 2026-03-06
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art15-en
+  title: European Union law
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art15-en
+  acl:
+  - all-employees
+  updated_at: 2025-04-10
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art15-ru
+  title: European Union law
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art15-ru
+  acl:
+  - all-employees
+  updated_at: 2025-04-10
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art16-en
+  title: Amazon rainforest
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art16-en
+  acl:
+  - all-employees
+  updated_at: 2023-03-26
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art16-ru
+  title: Amazon rainforest
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art16-ru
+  acl:
+  - all-employees
+  updated_at: 2023-03-26
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art17-en
+  title: Ctenophora
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art17-en
+  acl:
+  - all-employees
+  updated_at: 2022-07-06
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art17-ru
+  title: Ctenophora
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art17-ru
+  acl:
+  - all-employees
+  updated_at: 2022-07-06
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art18-en
+  title: Fresno, California
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art18-en
+  acl:
+  - all-employees
+  updated_at: 2022-11-10
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art18-ru
+  title: Fresno, California
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art18-ru
+  acl:
+  - all-employees
+  updated_at: 2022-11-10
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art19-en
+  title: Packet switching
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art19-en
+  acl:
+  - all-employees
+  updated_at: 2025-05-06
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art19-ru
+  title: Packet switching
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art19-ru
+  acl:
+  - all-employees
+  updated_at: 2025-05-06
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art20-en
+  title: Black Death
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art20-en
+  acl:
+  - all-employees
+  updated_at: 2024-02-21
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art20-ru
+  title: Black Death
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art20-ru
+  acl:
+  - all-employees
+  updated_at: 2024-02-21
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art21-en
+  title: Geology
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art21-en
+  acl:
+  - research
+  updated_at: 2025-02-07
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art21-ru
+  title: Geology
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art21-ru
+  acl:
+  - research
+  updated_at: 2025-02-07
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art22-en
+  title: Newcastle upon Tyne
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art22-en
+  acl:
+  - all-employees
+  updated_at: 2025-10-28
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art22-ru
+  title: Newcastle upon Tyne
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art22-ru
+  acl:
+  - all-employees
+  updated_at: 2025-10-28
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art23-en
+  title: Victoria and Albert Museum
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art23-en
+  acl:
+  - hr-team
+  updated_at: 2022-08-17
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art23-ru
+  title: Victoria and Albert Museum
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art23-ru
+  acl:
+  - hr-team
+  updated_at: 2022-08-17
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art24-en
+  title: American Broadcasting Company
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art24-en
+  acl:
+  - hr-team
+  updated_at: 2022-11-20
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art24-ru
+  title: American Broadcasting Company
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art24-ru
+  acl:
+  - hr-team
+  updated_at: 2022-11-20
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art25-en
+  title: Genghis Khan
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art25-en
+  acl:
+  - all-employees
+  updated_at: 2026-01-18
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art25-ru
+  title: Genghis Khan
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art25-ru
+  acl:
+  - all-employees
+  updated_at: 2026-01-18
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art26-en
+  title: Pharmacy
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art26-en
+  acl:
+  - all-employees
+  updated_at: 2024-11-05
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art26-en-dup
+  title: Pharmacy
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art26-en-dup
+  acl:
+  - all-employees
+  updated_at: 2022-08-06
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art26-ru
+  title: Pharmacy
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art26-ru
+  acl:
+  - all-employees
+  updated_at: 2024-11-05
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art26-ru-dup
+  title: Pharmacy
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art26-ru-dup
+  acl:
+  - all-employees
+  updated_at: 2025-07-04
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art27-en
+  title: Immune system
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art27-en
+  acl:
+  - all-employees
+  updated_at: 2022-11-10
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art27-ru
+  title: Immune system
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art27-ru
+  acl:
+  - all-employees
+  updated_at: 2022-11-10
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art28-en
+  title: Civil disobedience
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art28-en
+  acl:
+  - all-employees
+  updated_at: 2025-01-09
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art28-en-dup
+  title: Civil disobedience
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art28-en-dup
+  acl:
+  - all-employees
+  updated_at: 2026-05-14
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art28-ru
+  title: Civil disobedience
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art28-ru
+  acl:
+  - all-employees
+  updated_at: 2025-01-09
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art28-ru-dup
+  title: Civil disobedience
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art28-ru-dup
+  acl:
+  - all-employees
+  updated_at: 2024-12-22
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art29-en
+  title: Construction
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art29-en
+  acl:
+  - hr-team
+  updated_at: 2024-09-27
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art29-ru
+  title: Construction
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art29-ru
+  acl:
+  - hr-team
+  updated_at: 2024-09-27
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art30-en
+  title: Private school
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art30-en
+  acl:
+  - research
+  updated_at: 2024-01-14
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art30-ru
+  title: Private school
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art30-ru
+  acl:
+  - research
+  updated_at: 2024-01-14
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art31-en
+  title: Harvard University
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art31-en
+  acl:
+  - all-employees
+  updated_at: 2022-04-29
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art31-ru
+  title: Harvard University
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art31-ru
+  acl:
+  - all-employees
+  updated_at: 2022-04-29
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art32-en
+  title: Jacksonville, Florida
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art32-en
+  acl:
+  - all-employees
+  updated_at: 2022-06-25
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art32-ru
+  title: Jacksonville, Florida
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art32-ru
+  acl:
+  - all-employees
+  updated_at: 2022-06-25
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art33-en
+  title: Economic inequality
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art33-en
+  acl:
+  - all-employees
+  updated_at: 2026-04-07
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art33-en-slack
+  title: Economic inequality (Slack)
+  lang: en
+  source: slack
+  url: https://slack.acme.local/art33-en-slack
+  acl:
+  - all-employees
+  updated_at: 2026-06-10
+  authority: informal
+  status: active
+  superseded_by: null
+- doc_id: art33-ru
+  title: Economic inequality
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art33-ru
+  acl:
+  - all-employees
+  updated_at: 2026-04-07
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art33-ru-slack
+  title: Economic inequality (Slack)
+  lang: ru
+  source: slack
+  url: https://slack.acme.local/art33-ru-slack
+  acl:
+  - all-employees
+  updated_at: 2026-06-25
+  authority: informal
+  status: active
+  superseded_by: null
+- doc_id: art34-en
+  title: Doctor Who
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art34-en
+  acl:
+  - all-employees
+  updated_at: 2025-09-13
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art34-ru
+  title: Doctor Who
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art34-ru
+  acl:
+  - all-employees
+  updated_at: 2025-09-13
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art35-en
+  title: University of Chicago
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art35-en
+  acl:
+  - all-employees
+  updated_at: 2023-06-27
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art35-en-old
+  title: University of Chicago
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art35-en-old
+  acl:
+  - all-employees
+  updated_at: 2020-11-29
+  authority: official
+  status: archived
+  superseded_by: art35-en
+- doc_id: art35-ru
+  title: University of Chicago
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art35-ru
+  acl:
+  - all-employees
+  updated_at: 2023-06-27
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art35-ru-old
+  title: University of Chicago
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art35-ru-old
+  acl:
+  - all-employees
+  updated_at: 2020-09-09
+  authority: official
+  status: archived
+  superseded_by: art35-ru
+- doc_id: art36-en
+  title: Yuan dynasty
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art36-en
+  acl:
+  - all-employees
+  updated_at: 2025-01-09
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art36-ru
+  title: Yuan dynasty
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art36-ru
+  acl:
+  - all-employees
+  updated_at: 2025-01-09
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art37-en
+  title: Kenya
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art37-en
+  acl:
+  - all-employees
+  updated_at: 2024-03-28
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art37-ru
+  title: Kenya
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art37-ru
+  acl:
+  - all-employees
+  updated_at: 2024-03-28
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art38-en
+  title: Intergovernmental Panel on Climate Change
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art38-en
+  acl:
+  - all-employees
+  updated_at: 2024-11-25
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art38-ru
+  title: Intergovernmental Panel on Climate Change
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art38-ru
+  acl:
+  - all-employees
+  updated_at: 2024-11-25
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art39-en
+  title: Chloroplast
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art39-en
+  acl:
+  - research
+  updated_at: 2023-05-23
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art39-ru
+  title: Chloroplast
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art39-ru
+  acl:
+  - research
+  updated_at: 2023-05-23
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art40-en
+  title: Prime number
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art40-en
+  acl:
+  - all-employees
+  updated_at: 2023-11-24
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art40-ru
+  title: Prime number
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art40-ru
+  acl:
+  - all-employees
+  updated_at: 2023-11-24
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art41-en
+  title: Rhine
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art41-en
+  acl:
+  - all-employees
+  updated_at: 2025-04-20
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art41-ru
+  title: Rhine
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art41-ru
+  acl:
+  - all-employees
+  updated_at: 2025-04-20
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art42-en
+  title: Scottish Parliament
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art42-en
+  acl:
+  - all-employees
+  updated_at: 2022-05-26
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art42-ru
+  title: Scottish Parliament
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art42-ru
+  acl:
+  - all-employees
+  updated_at: 2022-05-26
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art43-en
+  title: Islamism
+  lang: en
+  source: confluence
+  url: https://confluence.acme.local/art43-en
+  acl:
+  - all-employees
+  updated_at: 2022-05-19
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art43-en-slack
+  title: Islamism (Slack)
+  lang: en
+  source: slack
+  url: https://slack.acme.local/art43-en-slack
+  acl:
+  - all-employees
+  updated_at: 2022-08-14
+  authority: informal
+  status: active
+  superseded_by: null
+- doc_id: art43-ru
+  title: Islamism
+  lang: ru
+  source: confluence
+  url: https://confluence.acme.local/art43-ru
+  acl:
+  - all-employees
+  updated_at: 2022-05-19
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art43-ru-slack
+  title: Islamism (Slack)
+  lang: ru
+  source: slack
+  url: https://slack.acme.local/art43-ru-slack
+  acl:
+  - all-employees
+  updated_at: 2022-06-20
+  authority: informal
+  status: active
+  superseded_by: null
+- doc_id: art44-en
+  title: Imperialism
+  lang: en
+  source: wiki
+  url: https://wiki.acme.local/art44-en
+  acl:
+  - all-employees
+  updated_at: 2024-11-18
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art44-ru
+  title: Imperialism
+  lang: ru
+  source: wiki
+  url: https://wiki.acme.local/art44-ru
+  acl:
+  - all-employees
+  updated_at: 2024-11-18
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art45-en
+  title: United Methodist Church
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art45-en
+  acl:
+  - all-employees
+  updated_at: 2025-10-02
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art45-ru
+  title: United Methodist Church
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art45-ru
+  acl:
+  - all-employees
+  updated_at: 2025-10-02
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art46-en
+  title: French and Indian War
+  lang: en
+  source: ticket
+  url: https://ticket.acme.local/art46-en
+  acl:
+  - all-employees
+  updated_at: 2025-01-09
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art46-ru
+  title: French and Indian War
+  lang: ru
+  source: ticket
+  url: https://ticket.acme.local/art46-ru
+  acl:
+  - all-employees
+  updated_at: 2025-01-09
+  authority: official
+  status: active
+  superseded_by: null
+- doc_id: art47-en
+  title: Force
+  lang: en
+  source: gdrive
+  url: https://gdrive.acme.local/art47-en
+  acl:
+  - all-employees
+  updated_at: 2023-05-13
+  authority: verified
+  status: active
+  superseded_by: null
+- doc_id: art47-ru
+  title: Force
+  lang: ru
+  source: gdrive
+  url: https://gdrive.acme.local/art47-ru
+  acl:
+  - all-employees
+  updated_at: 2023-05-13
+  authority: verified
+  status: active
+  superseded_by: null

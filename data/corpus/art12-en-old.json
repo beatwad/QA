@@ -1,0 +1,27 @@
+{
+ "doc_id": "art12-en-old",
+ "title": "Oxygen",
+ "lang": "en",
+ "paragraphs": [
+  {
+   "id": "art12-p00-old",
+   "text": "Oxygen was discovered independently by Carl Wilhelm Scheele, in Uppsala, in 1766 or earlier, and Joseph Priestley in Wiltshire, in 1774, but Priestley is often given priority because his work was published first. The name oxygen was coined in 1777 by Antoine Lavoisier, whose experiments with oxygen helped to discredit the then-popular phlogiston theory of combustion and corrosion. Its name derives from the Greek roots ὀξύς oxys, \"acid\", literally \"sharp\", referring to the sour taste of acids and -γενής -genes, \"producer\", literally \"begetter\", because at the time of naming, it was mistakenly thought that all acids required oxygen in their composition. Common uses of oxygen includes the production cycle of steel, plastics and textiles, brazing, welding and cutting of steels and other metals, rocket propellant, in oxygen therapy and life support systems in aircraft, submarines, spaceflight and diving."
+  },
+  {
+   "id": "art12-p01-old",
+   "text": "In 1891 Scottish chemist James Dewar was able to produce enough liquid oxygen to study. The first commercially viable process for producing liquid oxygen was independently developed in 1895 by German engineer Carl von Linde and British engineer William Hampson. Both men lowered the temperature of air until it liquefied and then distilled the component gases by boiling them off one at a time and capturing them. Later, in 1901, oxyacetylene welding was demonstrated for the first time by burning a mixture of acetylene and compressed O\n2. This method of welding and cutting metal later became common."
+  },
+  {
+   "id": "art12-p02-old",
+   "text": "Paleoclimatologists measure the ratio of oxygen-18 and oxygen-16 in the shells and skeletons of marine organisms to determine what the climate was like millions of years ago (see oxygen isotope ratio cycle). Seawater molecules that contain the lighter isotope, oxygen-16, evaporate at a slightly faster rate than water molecules containing the 12% heavier oxygen-18; this disparity increases at lower temperatures. During periods of lower global temperatures, snow and rain from that evaporated water tends to be higher in oxygen-16, and the seawater left behind tends to be higher in oxygen-18. Marine organisms then incorporate more oxygen-18 into their skeletons and shells than they would in a warmer climate. Paleoclimatologists also directly measure this ratio in the water molecules of ice core samples that are up to several hundreds of thousands of years old."
+  },
+  {
+   "id": "art12-p03-old",
+   "text": "Oxygen presents two spectrophotometric absorption bands peaking at the wavelengths 687 and 760 nm. Some remote sensing scientists have proposed using the measurement of the radiance coming from vegetation canopies in those bands to characterize plant health status from a satellite platform. This approach exploits the fact that in those bands it is possible to discriminate the vegetation's reflectance from its fluorescence, which is much weaker. The measurement is technically difficult owing to the low signal-to-noise ratio and the physical structure of vegetation; but it has been proposed as a possible method of monitoring the carbon cycle from satellites on a global scale."
+  },
+  {
+   "id": "art12-p04-old",
+   "text": "Hyperbaric (high-pressure) medicine uses special oxygen chambers to increase the partial pressure of O\n2 around the patient and, when needed, the medical staff. Carbon monoxide poisoning, gas gangrene, and decompression sickness (the 'bends') are sometimes treated using these devices. Increased O\n2 concentration in the lungs helps to displace carbon monoxide from the heme group of hemoglobin. Oxygen gas is poisonous to the anaerobic bacteria that cause gas gangrene, so increasing its partial pressure helps kill them. Decompression sickness occurs in divers who decompress too quickly after a dive, resulting in bubbles of inert gas, mostly nitrogen and helium, forming in their blood. Increasing the pressure of O\n2 as soon as possible is part of the treatment."
+  }
+ ]
+}

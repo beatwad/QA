@@ -1,0 +1,27 @@
+{
+ "doc_id": "art27-en",
+ "title": "Immune system",
+ "lang": "en",
+ "paragraphs": [
+  {
+   "id": "art27-p00",
+   "text": "Disorders of the immune system can result in autoimmune diseases, inflammatory diseases and cancer. Immunodeficiency occurs when the immune system is less active than normal, resulting in recurring and life-threatening infections. In humans, immunodeficiency can either be the result of a genetic disease such as severe combined immunodeficiency, acquired conditions such as HIV/AIDS, or the use of immunosuppressive medication. In contrast, autoimmunity results from a hyperactive immune system attacking normal tissues as if they were foreign organisms. Common autoimmune diseases include Hashimoto's thyroiditis, rheumatoid arthritis, diabetes mellitus type 1, and systemic lupus erythematosus. Immunology covers the study of all aspects of the immune system."
+  },
+  {
+   "id": "art27-p01",
+   "text": "Anti-inflammatory drugs are often used to control the effects of inflammation. Glucocorticoids are the most powerful of these drugs; however, these drugs can have many undesirable side effects, such as central obesity, hyperglycemia, osteoporosis, and their use must be tightly controlled. Lower doses of anti-inflammatory drugs are often used in conjunction with cytotoxic or immunosuppressive drugs such as methotrexate or azathioprine. Cytotoxic drugs inhibit the immune response by killing dividing cells such as activated T cells. However, the killing is indiscriminate and other constantly dividing cells and their organs are affected, which causes toxic side effects. Immunosuppressive drugs such as cyclosporin prevent T cells from responding to signals correctly by inhibiting signal transduction pathways."
+  },
+  {
+   "id": "art27-p02",
+   "text": "In contrast, during wake periods differentiated effector cells, such as cytotoxic natural killer cells and CTLs (cytotoxic T lymphocytes), peak in order to elicit an effective response against any intruding pathogens. As well during awake active times, anti-inflammatory molecules, such as cortisol and catecholamines, peak. There are two theories as to why the pro-inflammatory state is reserved for sleep time. First, inflammation would cause serious cognitive and physical impairments if it were to occur during wake times. Second, inflammation may occur during sleep times due to the presence of melatonin. Inflammation causes a great deal of oxidative stress and the presence of melatonin during sleep times could actively counteract free radical production during this time."
+  },
+  {
+   "id": "art27-p03",
+   "text": "Evolution of the adaptive immune system occurred in an ancestor of the jawed vertebrates. Many of the classical molecules of the adaptive immune system (e.g., immunoglobulins and T cell receptors) exist only in jawed vertebrates. However, a distinct lymphocyte-derived molecule has been discovered in primitive jawless vertebrates, such as the lamprey and hagfish. These animals possess a large array of molecules called Variable lymphocyte receptors (VLRs) that, like the antigen receptors of jawed vertebrates, are produced from only a small number (one or two) of genes. These molecules are believed to bind pathogenic antigens in a similar way to antibodies, and with the same degree of specificity."
+  },
+  {
+   "id": "art27-p04",
+   "text": "The mechanisms used to evade the adaptive immune system are more complicated. The simplest approach is to rapidly change non-essential epitopes (amino acids and/or sugars) on the surface of the pathogen, while keeping essential epitopes concealed. This is called antigenic variation. An example is HIV, which mutates rapidly, so the proteins on its viral envelope that are essential for entry into its host target cell are constantly changing. These frequent changes in antigens may explain the failures of vaccines directed at this virus. The parasite Trypanosoma brucei uses a similar strategy, constantly switching one type of surface protein for another, allowing it to stay one step ahead of the antibody response. Masking antigens with host molecules is another common strategy for avoiding detection by the immune system. In HIV, the envelope that covers the virion is formed from the outermost membrane of the host cell; such \"self-cloaked\" viruses make it difficult for the immune system to identify them as \"non-self\" structures."
+  }
+ ]
+}

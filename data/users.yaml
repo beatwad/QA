@@ -1,0 +1,12 @@
+alice:
+- all-employees
+bob:
+- all-employees
+- research
+hana:
+- all-employees
+- hr-team
+root:
+- all-employees
+- research
+- hr-team

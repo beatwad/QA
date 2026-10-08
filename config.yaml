@@ -1,0 +1,25 @@
+qdrant:
+  url: http://localhost:6333
+  collection: chunks
+
+llm:
+  base_url: http://localhost:8000/v1
+  model: llm   # --served-model-name in docker-compose.yml
+
+models:
+  embedder: BAAI/bge-m3
+  reranker: BAAI/bge-reranker-v2-m3
+
+chunking:
+  max_tokens: 300
+  overlap: 0.15
+
+retrieval:
+  rrf_k: 60
+  candidates: 50     # fused top-k sent to the reranker
+
+rerank:
+  top_k: 20
+
+postrank:
+  final_k: 8

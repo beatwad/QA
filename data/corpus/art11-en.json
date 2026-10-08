@@ -1,0 +1,27 @@
+{
+ "doc_id": "art11-en",
+ "title": "Steam engine",
+ "lang": "en",
+ "paragraphs": [
+  {
+   "id": "art11-p00",
+   "text": "The heat required for boiling the water and supplying the steam can be derived from various sources, most commonly from burning combustible materials with an appropriate supply of air in a closed space (called variously combustion chamber, firebox). In some cases the heat source is a nuclear reactor, geothermal energy, solar energy or waste heat from an internal combustion engine or industrial process. In the case of model or toy steam engines, the heat source can be an electric heating element."
+  },
+  {
+   "id": "art11-p01",
+   "text": "The most useful instrument for analyzing the performance of steam engines is the steam engine indicator. Early versions were in use by 1851, but the most successful indicator was developed for the high speed engine inventor and manufacturer Charles Porter by Charles Richard and exhibited at London Exhibition in 1862. The steam engine indicator traces on paper the pressure in the cylinder throughout the cycle, which can be used to spot various problems and calculate developed horsepower. It was routinely used by engineers, mechanics and insurance inspectors. The engine indicator can also be used on internal combustion engines. See image of indicator diagram below (in Types of motor units section)."
+  },
+  {
+   "id": "art11-p02",
+   "text": "The efficiency of a Rankine cycle is usually limited by the working fluid. Without the pressure reaching supercritical levels for the working fluid, the temperature range the cycle can operate over is quite small; in steam turbines, turbine entry temperatures are typically 565 °C (the creep limit of stainless steel) and condenser temperatures are around 30 °C. This gives a theoretical Carnot efficiency of about 63% compared with an actual efficiency of 42% for a modern coal-fired power station. This low turbine entry temperature (compared with a gas turbine) is why the Rankine cycle is often used as a bottoming cycle in combined-cycle gas turbine power stations.[citation needed]"
+  },
+  {
+   "id": "art11-p03",
+   "text": "Although the reciprocating steam engine is no longer in widespread commercial use, various companies are exploring or exploiting the potential of the engine as an alternative to internal combustion engines. The company Energiprojekt AB in Sweden has made progress in using modern materials for harnessing the power of steam. The efficiency of Energiprojekt's steam engine reaches some 27-30% on high-pressure engines. It is a single-step, 5-cylinder engine (no compound) with superheated steam and consumes approx. 4 kg (8.8 lb) of steam per kWh.[not in citation given]"
+  },
+  {
+   "id": "art11-p04",
+   "text": "A steam turbine consists of one or more rotors (rotating discs) mounted on a drive shaft, alternating with a series of stators (static discs) fixed to the turbine casing. The rotors have a propeller-like arrangement of blades at the outer edge. Steam acts upon these blades, producing rotary motion. The stator consists of a similar, but fixed, series of blades that serve to redirect the steam flow onto the next rotor stage. A steam turbine often exhausts into a surface condenser that provides a vacuum. The stages of a steam turbine are typically arranged to extract the maximum potential work from a specific velocity and pressure of steam, giving rise to a series of variably sized high- and low-pressure stages. Turbines are only efficient if they rotate at relatively high speed, therefore they are usually connected to reduction gearing to drive lower speed applications, such as a ship's propeller. In the vast majority of large electric generating stations, turbines are directly connected to generators with no reduction gearing. Typical speeds are 3600 revolutions per minute (RPM) in the USA with 60 Hertz power, 3000 RPM in Europe and other countries with 50 Hertz electric power systems. In nuclear power applications the turbines typically run at half these speeds, 1800 RPM and 1500 RPM. A turbine rotor is also only capable of providing power when rotating in one direction. Therefore, a reversing stage or gearbox is usually required where power is required in the opposite direction.[citation needed]"
+  }
+ ]
+}
