@@ -30,8 +30,10 @@ def make_token_counter(model_name: str) -> TokenCounter:
 
 
 def chunk_document(doc: Document, count: TokenCounter, max_tokens: int, overlap: float) -> list[Chunk]:
-    """One paragraph = one chunk; a paragraph over max_tokens is split into
-    sentence windows that share ~overlap * max_tokens of trailing sentences."""
+    """
+    One paragraph = one chunk; a paragraph over max_tokens is split into
+    sentence windows that share ~overlap * max_tokens of trailing sentences.
+    """
     texts = []
     for p in doc.paragraphs:
         pieces = [p.text] if count(p.text) <= max_tokens else _windows(p.text, count, max_tokens, overlap)
@@ -47,9 +49,12 @@ def _units(text: str, count: TokenCounter, max_tokens: int) -> list[str]:
     """Sentences; a sentence longer than max_tokens is broken into word runs."""
     units = []
     for sent in _SENTENCE_END.split(text):
+        # if sentence length <= max_tokens - add it
         if count(sent) <= max_tokens:
             units.append(sent)
             continue
+        # else split sentence by runs, each has lenght <= max_tokens
+        # and add one-by-one
         run: list[str] = []
         for word in sent.split():
             if run and count(" ".join(run + [word])) > max_tokens:
@@ -61,10 +66,15 @@ def _units(text: str, count: TokenCounter, max_tokens: int) -> list[str]:
 
 
 def _windows(text: str, count: TokenCounter, max_tokens: int, overlap: float) -> list[str]:
+    """
+    Group sentences into windows of at most max_tokens tokens.
+    Consecutive windows share up to overlap * max_tokens tokens of trailing sentences.
+    """
     units = _units(text, count, max_tokens)
     windows, start = [], 0
     while True:
         end = start + 1
+        # keep adding sentences to windows list while the joined text still fits in max_tokens
         while end < len(units) and count(" ".join(units[start : end + 1])) <= max_tokens:
             end += 1
         windows.append(" ".join(units[start:end]))
