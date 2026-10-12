@@ -5,15 +5,23 @@ description = "Toy RAG Q&A bot (EN + RU) over XQuAD"
 requires-python = ">=3.10"
 dependencies = [
     "datasets>=5.1.0",
+    "fastembed>=0.9.0",
     "pydantic>=2.7",
     "pyyaml>=6.0",
+    "qdrant-client>=1.19.1",
+    "sentence-transformers>=6.1.0",
     "tokenizers>=0.23.2",
+    "typer>=0.27.3",
 ]
+
+[project.scripts]
+rag = "rag.cli:app"
 
 [dependency-groups]
 dev = [
     "pytest>=8.0",
     "httpx>=0.27",
+    "ipykernel>=7.3.0",
 ]
 
 [build-system]
