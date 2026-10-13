@@ -5,6 +5,11 @@ qdrant:
 llm:
   base_url: http://localhost:8000/v1
   model: llm   # --served-model-name in docker-compose.yml
+  tokenizer: Qwen/Qwen2.5-7B-Instruct-AWQ   # for the prompt token budget
+  context_window: 8192   # --max-model-len in docker-compose.yml
+  max_tokens: 512        # answer length; reserved out of the context window
+  temperature: 0.1
+  history_turns: 6       # number of the most recent messages (question or answer) used for condensation and the prompt
 
 models:
   embedder: BAAI/bge-m3

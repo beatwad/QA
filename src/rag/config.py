@@ -14,6 +14,11 @@ class QdrantConfig(BaseModel):
 class LLMConfig(BaseModel):
     base_url: str
     model: str
+    tokenizer: str
+    context_window: int
+    max_tokens: int
+    temperature: float
+    history_turns: int
 
 
 class ModelsConfig(BaseModel):
