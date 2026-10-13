@@ -8,11 +8,12 @@ Events (type, data), in order:
 """
 
 import json
-import logging
 import uuid
 from collections.abc import Callable, Iterator
 from dataclasses import asdict
 from datetime import date
+
+from loguru import logger
 
 from rag.indexing.chunking import TokenCounter
 from rag.generation.citations import SNIPPET_CHARS, extract_citations
@@ -25,8 +26,6 @@ from rag.generation.prompt import NOT_FOUND, build_messages
 from rag.generation.query import condense
 from rag.search.rerank import Reranker, confident, rerank
 from rag.search.retrieval import Hit, Retriever
-
-log = logging.getLogger(__name__)
 
 Event = tuple[str, dict]
 
@@ -72,7 +71,7 @@ class Pipeline:
 
         # save before the last events: the client may disconnect as soon as it sees them
         self.conversations.append(user, conversation_id, question, answer)
-        log.info(json.dumps({"user": user, "conversation_id": conversation_id, "query": query, "status": status,
+        logger.info(json.dumps({"user": user, "conversation_id": conversation_id, "query": query, "status": status,
                              "chunks": [h.chunk_id for h in final], "cited": [c["chunk_id"] for c in citations]},
                             ensure_ascii=False))
         yield "result", {"status": status, "answer": answer, "citations": citations}
@@ -91,7 +90,7 @@ class Pipeline:
                 raw += text
                 yield "token", {"text": text}
         except Exception:
-            log.warning("LLM failed, returning ranked links", exc_info=True)
+            logger.opt(exception=True).warning("LLM failed, returning ranked links")
             links = [_link(i, h) for i, h in enumerate(final, start=1)]
             return "llm_unavailable", MESSAGES["llm_unavailable"][lang], links
         answer, cites = extract_citations(raw, used)

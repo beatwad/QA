@@ -39,8 +39,6 @@ def ingest(corpus: Path = Path("data/corpus"), reset: bool = False):
 def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/corpus"),
           users: Path = Path("data/users.yaml")):
     """Run the API (models load at startup)."""
-    import logging
-
     import uvicorn
     from qdrant_client import QdrantClient
 
@@ -57,7 +55,7 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
     from rag.search.rerank import CrossEncoderReranker
     from rag.search.retrieval import Retriever
 
-    logging.basicConfig(level=logging.INFO)
+    _setup_logging()
     cfg = load_config()
     dense, sparse = BgeM3Encoder(cfg.models.embedder), Bm25Encoder()
     index = Index(QdrantClient(cfg.qdrant.url), cfg.qdrant.collection, dense.dim)
@@ -67,4 +65,34 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
                         CrossEncoderReranker(cfg.models.reranker), OpenAICompatLLM(cfg.llm.base_url, cfg.llm.model),
                         make_token_counter(cfg.llm.tokenizer), ConversationStore())
     app_ = create_app(pipeline, Users.load(users), lambda: service.sync(load_corpus(corpus)))
-    uvicorn.run(app_, host=host, port=port)
+    uvicorn.run(app_, host=host, port=port, log_config=None)
+
+
+def _setup_logging(level: str = "INFO") -> None:
+    """Log through loguru at `level`, and route libraries that use stdlib logging (uvicorn, httpx, ...)
+    into it, so everything comes out in one format."""
+    import inspect
+    import logging
+    import sys
+
+    from loguru import logger
+
+    class InterceptHandler(logging.Handler):
+        def emit(self, record: logging.LogRecord) -> None:
+            try:
+                lvl: str | int = logger.level(record.levelname).name
+            except ValueError:
+                lvl = record.levelno
+            # walk out of the logging module so loguru reports the caller's file and line
+            frame, depth = inspect.currentframe(), 0
+            while frame and (depth == 0 or frame.f_code.co_filename == logging.__file__):
+                frame, depth = frame.f_back, depth + 1
+            logger.opt(depth=depth, exception=record.exc_info).log(lvl, record.getMessage())
+
+    logger.remove()
+    # diagnose=False: tracebacks don't print local variable values (queries, user groups) into logs
+    logger.add(sys.stderr, level=level, diagnose=False)
+    logging.basicConfig(handlers=[InterceptHandler()], level=level, force=True)
+    # one INFO line per HTTP call (Hugging Face, Qdrant, vLLM) drowns everything else
+    for noisy in ("httpx", "httpx2"):
+        logging.getLogger(noisy).setLevel(logging.WARNING)

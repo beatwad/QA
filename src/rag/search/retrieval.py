@@ -1,14 +1,12 @@
 """Hybrid retrieval: dense + sparse search, both ACL-filtered inside Qdrant, fused with RRF."""
 
-import logging
 from dataclasses import dataclass, field
 
+from loguru import logger
 from qdrant_client import models
 
 from rag.storage.encoders import DenseEncoder, SparseEncoder
 from rag.storage.index import DENSE, SPARSE, Index
-
-log = logging.getLogger(__name__)
 
 
 @dataclass
@@ -84,7 +82,7 @@ class Retriever:
             try:
                 hits = self.search_branch(branch, query, groups)
             except Exception as e:
-                log.warning("%s branch failed, serving without it", branch, exc_info=True)
+                logger.opt(exception=True).warning("{} branch failed, serving without it", branch)
                 errors.append(e)
                 continue
             ranked[branch] = [h.chunk_id for h in hits]

@@ -2,11 +2,9 @@
 question for retrieval. Most of the follow-up questions demand context for retrieval's correct work,
 this function provides the necessary context."""
 
-import logging
+from loguru import logger
 
 from rag.generation.llm import LLM, complete
-
-log = logging.getLogger(__name__)
 
 CONDENSE_SYSTEM = """Rewrite the user's last question as a standalone question that can be understood
 without the conversation. Resolve pronouns and references using the conversation.
@@ -25,6 +23,6 @@ def condense(llm: LLM, history: list[dict], question: str) -> str:
     try:
         rewritten = complete(llm, messages, max_tokens=128).strip()
     except Exception:
-        log.warning("condensation failed, using the raw question", exc_info=True)
+        logger.opt(exception=True).warning("condensation failed, using the raw question")
         return question
     return rewritten or question
