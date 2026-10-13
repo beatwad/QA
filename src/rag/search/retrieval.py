@@ -1,11 +1,14 @@
 """Hybrid retrieval: dense + sparse search, both ACL-filtered inside Qdrant, fused with RRF."""
 
+import logging
 from dataclasses import dataclass, field
 
 from qdrant_client import models
 
 from rag.storage.encoders import DenseEncoder, SparseEncoder
 from rag.storage.index import DENSE, SPARSE, Index
+
+log = logging.getLogger(__name__)
 
 
 @dataclass
@@ -70,11 +73,20 @@ class Retriever:
                 for rank, p in enumerate(points, start=1)]
 
     def search(self, query: str, groups: list[str]) -> list[Hit]:
-        """Both branches fused with RRF -> top `limit` candidates for the reranker."""
+        """Both branches fused with RRF -> top `limit` candidates for the reranker.
+
+        If one branch fails, the other one is served alone; only if both fail does this raise.
+        """
         by_id: dict[str, Hit] = {}
         ranked = {}
+        errors = []
         for branch in (DENSE, SPARSE):
-            hits = self.search_branch(branch, query, groups)
+            try:
+                hits = self.search_branch(branch, query, groups)
+            except Exception as e:
+                log.warning("%s branch failed, serving without it", branch, exc_info=True)
+                errors.append(e)
+                continue
             ranked[branch] = [h.chunk_id for h in hits]
             for h in hits:
                 # returns Hit object if h.chunk_id wasn't find in the by_id dict
@@ -83,6 +95,9 @@ class Retriever:
                 merged.ranks.update(h.ranks)
                 merged.scores.update(h.scores)
                 merged.vector = merged.vector or h.vector
+        # Raise error only if both branches are failed
+        if len(errors) == 2:
+            raise errors[0]
         fused = []
         for chunk_id, score in rrf(ranked, self.rrf_k, self.weights)[: self.limit]:
             by_id[chunk_id].rrf_score = score

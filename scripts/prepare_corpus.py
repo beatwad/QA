@@ -27,6 +27,7 @@ USERS = {
     "bob": ["all-employees", "research"],
     "hana": ["all-employees", "hr-team"],
     "root": ["all-employees", "research", "hr-team"],  # retrieval eval sees everything
+    "ops": ["all-employees", "admin"],  # may call /v1/admin/sync
 }
 
 N_RESTRICTED = 4  # per group

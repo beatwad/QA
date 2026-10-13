@@ -23,7 +23,7 @@ Target machine: RTX 4090 (24 GB VRAM), 64 GB RAM, Docker, Python ≥ 3.10, uv.
 | Query condensation | An LLM call rewrites (history + follow-up) into a standalone query, keeping the user's language; if it fails, the raw query is used |
 | Prompt generation | System rules + numbered chunks with source tags; the strongest chunk is placed first; "answer in the language of the question" |
 | LLM | vLLM (Docker, `vllm/vllm-openai`) serving `Qwen/Qwen2.5-7B-Instruct-AWQ` (good Russian; about 5.5 GB of weights, leaving VRAM for the KV cache, embedder and reranker). Called through the OpenAI-compatible API with streaming. The model name is configurable |
-| API | FastAPI: `POST /v1/ask` streams over SSE (Server-Sent Events): tokens, then a final `citations` event; `conversation_id` for multi-turn; `POST /v1/admin/sync`; `GET /health` |
+| API | FastAPI: `POST /v1/ask` streams over SSE (Server-Sent Events): tokens, then a final `result` event (status, answer, citations); `conversation_id` for multi-turn; `POST /v1/admin/sync`; `GET /health` |
 | Auth | Toy auth: an `X-User` header mapped to groups via `data/users.yaml`; an unknown user or missing header → 401 (fail closed) |
 | Citations | Parse `[n]` markers → map them to chunk title/url/snippet; drop invalid markers |
 | Fallbacks | LLM down → return ranked links; one retrieval branch down → use the other; auth unknown → refuse |
@@ -122,7 +122,7 @@ Each phase ends with a check that can be run.
 6. **Generation** — prompt assembly with a token budget, streaming vLLM client, citation mapping, condensation for follow-ups.
    → verify: unit tests with a fake LLM: prompt contains numbered chunks, invalid `[7]` markers are dropped, the condensation fallback works; e2e (real vLLM): an answer contains ≥ 1 valid citation; an RU question gets an RU answer; an unanswerable question → "not found".
 7. **Pipeline + FastAPI + fallbacks** — wire up the 13 serving steps behind `/v1/ask` with SSE streaming; conversation store.
-   → verify: API tests with `TestClient` + fakes: SSE event order (tokens → citations → done), 401 without `X-User`, a follow-up in the same `conversation_id` gets condensed; e2e: LLM down → links returned; dense branch disabled → still answers from sparse.
+   → verify: API tests with `TestClient` + fakes: SSE event order (tokens → result → done), 401 without `X-User`, a follow-up in the same `conversation_id` gets condensed; e2e: LLM down → links returned; dense branch disabled → still answers from sparse.
 8. **Offline evaluation** — `rag eval` prints Recall@{5,10}, MRR and NDCG@10 **per stage** (dense only, sparse only, after RRF, after rerank, after post-rank) and **per language pair** (EN→EN, RU→RU, RU→EN, EN→RU); optional LLM-judge faithfulness on the generation subset.
    → verify: unit tests of the metric functions against hand-computed values; a regression test asserts Recall@5 ≥ a threshold.
 9. **Train the bi-encoder (InfoNCE)** — implement the symmetric InfoNCE loss from design.md by hand: in-batch negatives, a learnable log-temperature that is clamped, plus hard negatives mined from the current model's ANN (Approximate Nearest Neighbor) top-k.

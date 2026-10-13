@@ -10,3 +10,6 @@ root:
 - all-employees
 - research
 - hr-team
+ops:
+- all-employees
+- admin

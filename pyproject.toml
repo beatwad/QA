@@ -5,6 +5,7 @@ description = "Toy RAG Q&A bot (EN + RU) over XQuAD"
 requires-python = ">=3.10"
 dependencies = [
     "datasets>=5.1.0",
+    "fastapi>=0.143.0",
     "fastembed>=0.9.0",
     "openai>=3.29.0",
     "pydantic>=2.7",
@@ -13,6 +14,7 @@ dependencies = [
     "sentence-transformers>=6.1.0",
     "tokenizers>=0.23.2",
     "typer>=0.27.3",
+    "uvicorn>=0.54.0",
 ]
 
 [project.scripts]
