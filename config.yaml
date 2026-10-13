@@ -14,13 +14,27 @@ chunking:
   max_tokens: 300
   overlap: 0.15
 
+# Hybrid search: dense (bge-m3) + sparse (BM25), both ACL-filtered, fused with RRF
 retrieval:
-  rrf_k: 60
-  rrf_weights: {dense: 1.0, sparse: 1.0}
+  rrf_k: 60          # RRF score = sum of w / (k + rank); larger k flattens the gap between top ranks
+  rrf_weights: {dense: 1.0, sparse: 1.0}   # w per branch; raise one to trust that branch more
   candidates: 50     # per-branch top-k, and fused top-k sent to the reranker
 
+# Cross-encoder reranking + confidence gate
 rerank:
-  top_k: 20
+  top_k: 20              # keep the best N of the fused candidates for post-ranking
+  gate_threshold: -2.0   # raw cross-encoder logit; best surviving chunk below -> "not found", no LLM call
+                         # calibrated on the golden set: blocks all unanswerable/ACL questions, passes ~97% answerable
 
+# Business signals on top of relevance:
+#   final = sigmoid(ce) + w_freshness * freshness + w_authority * authority - w_dup * similarity_to_already_picked
+# Weights are small on purpose: they reorder near-ties but can't lift an off-topic chunk (sigmoid(ce) spans 0..1)
 postrank:
-  final_k: 8
+  final_k: 8             # chunks sent to the LLM
+  max_per_doc: 2         # so one long document can't take every slot
+  w_freshness: 0.05      # max bonus for a just-updated doc
+  w_authority: 0.1       # max bonus for an official doc
+  w_dup: 0.3             # MMR penalty per unit of cosine similarity to a chunk that was already picked
+  dup_threshold: 0.95    # cosine; at or above -> dropped as a near-duplicate
+  half_life_days: {confluence: 730, wiki: 730, gdrive: 365, ticket: 90, slack: 30}   # freshness halves after this age
+  authority_prior: {official: 1.0, verified: 0.7, informal: 0.0}                     # multiplied by w_authority

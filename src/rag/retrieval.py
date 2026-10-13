@@ -15,6 +15,8 @@ class Hit:
     rrf_score: float = 0.0
     ranks: dict[str, int] = field(default_factory=dict)  # branch -> 1-based rank
     scores: dict[str, float] = field(default_factory=dict)  # branch -> raw score (cosine / BM25)
+    ce_score: float | None = None  # raw cross-encoder logit, set by rerank()
+    final_score: float | None = None  # post-ranking blend, set by postrank()
 
 
 def rrf(ranked: dict[str, list[str]], k: int, weights: dict[str, float]) -> list[tuple[str, float]]:
@@ -72,6 +74,8 @@ class Retriever:
             hits = self.search_branch(branch, query, groups)
             ranked[branch] = [h.chunk_id for h in hits]
             for h in hits:
+                # returns Hit object if h.chunk_id wasn't find in the by_id dict
+                # unlike .get method, the Hit object lives in the by_id dict and can be altered
                 merged = by_id.setdefault(h.chunk_id, Hit(chunk_id=h.chunk_id, payload=h.payload))
                 merged.ranks.update(h.ranks)
                 merged.scores.update(h.scores)

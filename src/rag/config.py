@@ -34,10 +34,18 @@ class RetrievalConfig(BaseModel):
 
 class RerankConfig(BaseModel):
     top_k: int
+    gate_threshold: float
 
 
 class PostrankConfig(BaseModel):
     final_k: int
+    max_per_doc: int
+    w_freshness: float
+    w_authority: float
+    w_dup: float
+    dup_threshold: float
+    half_life_days: dict[str, float]
+    authority_prior: dict[str, float]
 
 
 class Config(BaseModel):

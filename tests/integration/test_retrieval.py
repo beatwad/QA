@@ -26,14 +26,6 @@ def make_retriever(config, bge, bm25, count_tokens, docs):
     return Retriever(index, bge, bm25, r.candidates, r.rrf_k, r.rrf_weights)
 
 
-@pytest.fixture(scope="module")
-def retriever(config, bge, bm25, count_tokens):
-    """The full corpus, indexed once for this module."""
-    r = make_retriever(config, bge, bm25, count_tokens, list(DOCS.values()))
-    yield r
-    r.index.drop()
-
-
 def restricted_questions():
     """Every question whose gold doc is not open to all employees (~400 queries)."""
     return [g for g in GOLDEN if g["gold_doc"] and DOCS[g["gold_doc"]].acl != ["all-employees"]]
