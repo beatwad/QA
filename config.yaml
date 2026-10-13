@@ -16,7 +16,8 @@ chunking:
 
 retrieval:
   rrf_k: 60
-  candidates: 50     # fused top-k sent to the reranker
+  rrf_weights: {dense: 1.0, sparse: 1.0}
+  candidates: 50     # per-branch top-k, and fused top-k sent to the reranker
 
 rerank:
   top_k: 20

@@ -28,6 +28,7 @@ class ChunkingConfig(BaseModel):
 
 class RetrievalConfig(BaseModel):
     rrf_k: int
+    rrf_weights: dict[str, float]
     candidates: int
 
 

@@ -5,9 +5,8 @@ from pathlib import Path
 import pytest
 from qdrant_client import QdrantClient
 
-from rag.chunking import chunk_document, make_token_counter
+from rag.chunking import chunk_document
 from rag.documents import Document, Paragraph, load_corpus
-from rag.encoders import BgeM3Encoder, Bm25Encoder
 from rag.index import SPARSE, Index
 from rag.ingest import DocumentUpdateService
 
@@ -29,21 +28,6 @@ class CountingEncoder:
 
     def encode_query(self, text):
         return self.inner.encode_query(text)
-
-
-@pytest.fixture(scope="session")
-def bge(config):
-    return BgeM3Encoder(config.models.embedder)
-
-
-@pytest.fixture(scope="session")
-def bm25():
-    return Bm25Encoder()
-
-
-@pytest.fixture(scope="session")
-def count_tokens(config):
-    return make_token_counter(config.models.embedder)
 
 
 @pytest.fixture
