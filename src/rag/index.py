@@ -68,6 +68,12 @@ class Index:
         """Update payload without touching the vector"""
         self.client.set_payload(self.collection, payload, points=_doc_filter(doc_id), wait=True)
 
+    def dense_vectors(self, chunk_ids: list[str]) -> dict[str, list[float]]:
+        """chunk_id -> stored dense vector, fetched by point id."""
+        points = self.client.retrieve(self.collection, [point_id(c) for c in chunk_ids],
+                                      with_payload=["chunk_id"], with_vectors=[DENSE])
+        return {p.payload["chunk_id"]: p.vector[DENSE] for p in points}
+
     def doc_hashes(self) -> dict[str, tuple[str, str]]:
         """doc_id -> (content_hash, meta_hash), read back from the stored points."""
         out, offset = {}, None

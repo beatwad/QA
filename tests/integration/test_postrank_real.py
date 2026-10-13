@@ -19,11 +19,11 @@ TODAY = date(2026, 10, 1)
 
 
 @pytest.fixture(scope="module")
-def run(config, retriever, reranker, bge):
+def run(config, retriever, reranker):
     """question, user -> (final chunks, gate passed?)"""
     def _run(g):
         hits = rerank(reranker, g["question"], retriever.search(g["question"], USERS[g["user"]]), config.rerank.top_k)
-        final = postrank(hits, config.postrank, bge.encode_documents, TODAY)
+        final = postrank(hits, config.postrank, TODAY)
         return final, confident(final, config.rerank.gate_threshold)
     return _run
 

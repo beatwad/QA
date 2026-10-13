@@ -6,16 +6,12 @@ The business weights are small on purpose: they reorder near-ties but can't lift
 
 import math
 from collections import Counter
-from collections.abc import Callable
 from datetime import date
 
 import numpy as np
 
 from rag.config import PostrankConfig
 from rag.retrieval import Hit
-
-Embed = Callable[[list[str]], list[list[float]]]  # texts -> L2-normalized vectors
-
 
 def freshness(updated_at: date, today: date, half_life_days: float) -> float:
     """Exponential decay: 1.0 today, 0.5 after one half-life."""
@@ -28,7 +24,7 @@ def is_live(payload: dict) -> bool:
     return payload.get("status") == "active" and not payload.get("superseded_by")
 
 
-def postrank(hits: list[Hit], cfg: PostrankConfig, embed: Embed, today: date) -> list[Hit]:
+def postrank(hits: list[Hit], cfg: PostrankConfig, today: date) -> list[Hit]:
     live = [h for h in hits if is_live(h.payload)]
     if not live:
         return []
@@ -39,7 +35,7 @@ def postrank(hits: list[Hit], cfg: PostrankConfig, embed: Embed, today: date) ->
         authority = cfg.authority_prior[p["authority"]]
         base.append(1 / (1 + math.exp(-h.ce_score)) + cfg.w_freshness * fresh + cfg.w_authority * authority)
 
-    vectors = np.asarray(embed([h.payload["text"] for h in live]))
+    vectors = np.asarray([h.vector for h in live])  # L2-normalized bge-m3 vectors from the index
     sims = vectors @ vectors.T
 
     # MMR-style greedy selection: each pick is penalized by its similarity to what's already picked

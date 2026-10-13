@@ -17,6 +17,7 @@ class Hit:
     scores: dict[str, float] = field(default_factory=dict)  # branch -> raw score (cosine / BM25)
     ce_score: float | None = None  # raw cross-encoder logit, set by rerank()
     final_score: float | None = None  # post-ranking blend, set by postrank()
+    vector: list[float] | None = None  # stored dense vector, used for dedup in post-ranking
 
 
 def rrf(ranked: dict[str, list[str]], k: int, weights: dict[str, float]) -> list[tuple[str, float]]:
@@ -62,8 +63,10 @@ class Retriever:
             query_filter=acl_filter(groups),
             limit=self.limit, 
             with_payload=True,
+            with_vectors=[DENSE] if branch == DENSE else False,
         ).points
-        return [Hit(chunk_id=p.payload["chunk_id"], payload=p.payload, ranks={branch: rank}, scores={branch: p.score})
+        return [Hit(chunk_id=p.payload["chunk_id"], payload=p.payload, ranks={branch: rank}, scores={branch: p.score},
+                    vector=p.vector[DENSE] if p.vector else None)
                 for rank, p in enumerate(points, start=1)]
 
     def search(self, query: str, groups: list[str]) -> list[Hit]:
@@ -79,8 +82,15 @@ class Retriever:
                 merged = by_id.setdefault(h.chunk_id, Hit(chunk_id=h.chunk_id, payload=h.payload))
                 merged.ranks.update(h.ranks)
                 merged.scores.update(h.scores)
+                merged.vector = merged.vector or h.vector
         fused = []
         for chunk_id, score in rrf(ranked, self.rrf_k, self.weights)[: self.limit]:
             by_id[chunk_id].rrf_score = score
             fused.append(by_id[chunk_id])
+        # chunks found only by the sparse branch came back without their dense vector
+        missing = [h.chunk_id for h in fused if h.vector is None]
+        if missing:
+            vectors = self.index.dense_vectors(missing)
+            for h in fused:
+                h.vector = h.vector or vectors[h.chunk_id]
         return fused

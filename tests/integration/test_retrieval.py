@@ -57,6 +57,8 @@ def test_fused_hits_carry_both_branches(retriever):
     assert all(a.rrf_score >= b.rrf_score for a, b in zip(hits, hits[1:]))
     both = [h for h in hits if set(h.ranks) == {DENSE, SPARSE}]
     assert both and all(set(h.scores) == {DENSE, SPARSE} for h in both)
+    # every candidate carries its stored dense vector, including sparse-only hits
+    assert all(h.vector and len(h.vector) == retriever.dense.dim for h in hits)
 
 
 def test_missing_acl_is_never_returned(config, bge, bm25):
