@@ -75,26 +75,31 @@ QA/
 ├── data/{corpus/, users.yaml, golden.jsonl}
 ├── src/rag/
 │   ├── config.py             # pydantic settings loaded from config.yaml
-│   ├── documents.py          # load corpus + metadata → Document
-│   ├── chunking.py           # paragraph-aware chunker
 │   ├── lang.py               # language detection (Cyrillic ratio heuristic)
-│   ├── encoders.py           # dense (bge-m3) + sparse (BM25, per-language stemmer)
-│   ├── index.py              # Qdrant: create collection, upsert, delete, set_payload
-│   ├── ingest.py             # Document Update Service: diff by hash, sync index
-│   ├── auth.py               # user → groups, fail closed
-│   ├── retrieval.py          # dense search, sparse search, RRF
-│   ├── rerank.py             # cross-encoder
-│   ├── postrank.py           # freshness / authority / lifecycle / dedup / cap
-│   ├── query.py              # multi-turn condensation
-│   ├── prompt.py             # prompt assembly + token budget
-│   ├── llm.py                # OpenAI-compatible streaming client (vLLM)
-│   ├── citations.py          # [n] → sources
-│   ├── conversations.py      # in-memory conversation store
-│   ├── pipeline.py           # serving orchestration + fallbacks
-│   ├── api.py                # FastAPI app (SSE streaming)
-│   ├── eval.py               # Recall@k, MRR, NDCG, (judge)
-│   └── cli.py                # `rag ingest`, `rag eval`, `rag serve`
-├── src/rag/train/            # Phase 9: InfoNCE fine-tuning
+│   ├── cli.py                # `rag ingest`, `rag eval`, `rag serve`
+│   ├── storage/              # the Qdrant index and what writes vectors into it
+│   │   ├── encoders.py       # dense (bge-m3) + sparse (BM25, per-language stemmer)
+│   │   └── index.py          # Qdrant: create collection, upsert, delete, set_payload
+│   ├── indexing/             # corpus → index (offline)
+│   │   ├── documents.py      # load corpus + metadata → Document
+│   │   ├── chunking.py       # paragraph-aware chunker
+│   │   └── ingest.py         # Document Update Service: diff by hash, sync index
+│   ├── search/               # query → ranked chunks
+│   │   ├── retrieval.py      # dense search, sparse search, RRF
+│   │   ├── rerank.py         # cross-encoder + confidence gate
+│   │   └── postrank.py       # freshness / authority / lifecycle / dedup / cap
+│   ├── generation/           # chunks → answer
+│   │   ├── llm.py            # OpenAI-compatible streaming client (vLLM)
+│   │   ├── query.py          # multi-turn condensation
+│   │   ├── prompt.py         # prompt assembly + token budget
+│   │   └── citations.py      # [n] → sources
+│   ├── serving/              # HTTP + orchestration
+│   │   ├── pipeline.py       # serving orchestration + fallbacks
+│   │   ├── api.py            # FastAPI app (SSE streaming)
+│   │   ├── auth.py           # user → groups, fail closed
+│   │   └── conversations.py  # in-memory conversation store
+│   ├── eval/                 # Phase 8: Recall@k, MRR, NDCG, (judge)
+│   └── train/                # Phase 9: InfoNCE fine-tuning
 └── tests/{unit/, integration/, e2e/}
 ```
 

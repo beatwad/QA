@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-from rag.postrank import postrank
-from rag.rerank import confident, rerank
+from rag.search.postrank import postrank
+from rag.search.rerank import confident, rerank
 
 pytestmark = pytest.mark.integration
 

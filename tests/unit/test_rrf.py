@@ -1,6 +1,6 @@
 import pytest
 
-from rag.retrieval import rrf
+from rag.search.retrieval import rrf
 
 W = {"dense": 1.0, "sparse": 1.0}
 

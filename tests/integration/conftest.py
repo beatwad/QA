@@ -4,13 +4,13 @@ from pathlib import Path
 import pytest
 from qdrant_client import QdrantClient
 
-from rag.chunking import make_token_counter
-from rag.documents import load_corpus
-from rag.encoders import BgeM3Encoder, Bm25Encoder
-from rag.index import Index
-from rag.ingest import DocumentUpdateService
-from rag.rerank import CrossEncoderReranker
-from rag.retrieval import Retriever
+from rag.indexing.chunking import make_token_counter
+from rag.indexing.documents import load_corpus
+from rag.storage.encoders import BgeM3Encoder, Bm25Encoder
+from rag.storage.index import Index
+from rag.indexing.ingest import DocumentUpdateService
+from rag.search.rerank import CrossEncoderReranker
+from rag.search.retrieval import Retriever
 
 CORPUS = Path(__file__).resolve().parents[2] / "data" / "corpus"
 

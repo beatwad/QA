@@ -3,9 +3,9 @@ from datetime import date
 import pytest
 
 from rag.config import load_config
-from rag.postrank import freshness, postrank
-from rag.rerank import confident
-from rag.retrieval import Hit
+from rag.search.postrank import freshness, postrank
+from rag.search.rerank import confident
+from rag.search.retrieval import Hit
 
 TODAY = date(2026, 10, 1)
 CFG = load_config().postrank

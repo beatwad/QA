@@ -1,4 +1,4 @@
-from rag.retrieval import Hit
+from rag.search.retrieval import Hit
 
 
 class FakeLLM:

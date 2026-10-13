@@ -11,7 +11,7 @@ from datetime import date
 import numpy as np
 
 from rag.config import PostrankConfig
-from rag.retrieval import Hit
+from rag.search.retrieval import Hit
 
 def freshness(updated_at: date, today: date, half_life_days: float) -> float:
     """Exponential decay: 1.0 today, 0.5 after one half-life."""

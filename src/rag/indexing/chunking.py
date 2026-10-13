@@ -3,7 +3,7 @@ from collections.abc import Callable
 
 from pydantic import BaseModel
 
-from rag.documents import Document
+from rag.indexing.documents import Document
 from rag.lang import detect_lang
 
 TokenCounter = Callable[[str], int]

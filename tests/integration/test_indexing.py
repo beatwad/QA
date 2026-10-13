@@ -5,10 +5,10 @@ from pathlib import Path
 import pytest
 from qdrant_client import QdrantClient
 
-from rag.chunking import chunk_document
-from rag.documents import Document, Paragraph, load_corpus
-from rag.index import SPARSE, Index
-from rag.ingest import DocumentUpdateService
+from rag.indexing.chunking import chunk_document
+from rag.indexing.documents import Document, Paragraph, load_corpus
+from rag.storage.index import SPARSE, Index
+from rag.indexing.ingest import DocumentUpdateService
 
 pytestmark = pytest.mark.integration
 

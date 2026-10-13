@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 
-from rag.retrieval import Hit
+from rag.search.retrieval import Hit
 
 _MARKER = re.compile(r"\[(\d+(?:\s*,\s*\d+)*)\]")  # [1]  or  [1, 2]
 SNIPPET_CHARS = 200

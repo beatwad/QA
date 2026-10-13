@@ -4,11 +4,11 @@ import hashlib
 import json
 from dataclasses import dataclass, field
 
-from rag.chunking import TokenCounter, chunk_document
+from rag.indexing.chunking import TokenCounter, chunk_document
 from rag.config import ChunkingConfig
-from rag.documents import Document
-from rag.encoders import DenseEncoder, SparseEncoder
-from rag.index import Index
+from rag.indexing.documents import Document
+from rag.storage.encoders import DenseEncoder, SparseEncoder
+from rag.storage.index import Index
 
 
 def _sha(obj) -> str:

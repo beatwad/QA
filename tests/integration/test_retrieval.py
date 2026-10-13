@@ -6,10 +6,10 @@ import pytest
 import yaml
 from qdrant_client import QdrantClient
 
-from rag.documents import load_corpus
-from rag.index import DENSE, SPARSE, Index
-from rag.ingest import DocumentUpdateService
-from rag.retrieval import Retriever
+from rag.indexing.documents import load_corpus
+from rag.storage.index import DENSE, SPARSE, Index
+from rag.indexing.ingest import DocumentUpdateService
+from rag.search.retrieval import Retriever
 
 pytestmark = pytest.mark.integration
 

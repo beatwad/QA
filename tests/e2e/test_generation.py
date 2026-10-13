@@ -3,14 +3,14 @@ from pathlib import Path
 
 import pytest
 
-from rag.chunking import make_token_counter
-from rag.citations import extract_citations
-from rag.documents import load_corpus
+from rag.indexing.chunking import make_token_counter
+from rag.generation.citations import extract_citations
+from rag.indexing.documents import load_corpus
 from rag.lang import detect_lang
-from rag.llm import OpenAICompatLLM
-from rag.prompt import build_messages, is_not_found
-from rag.query import condense
-from rag.retrieval import Hit
+from rag.generation.llm import OpenAICompatLLM
+from rag.generation.prompt import build_messages, is_not_found
+from rag.generation.query import condense
+from rag.search.retrieval import Hit
 
 pytestmark = pytest.mark.llm
 

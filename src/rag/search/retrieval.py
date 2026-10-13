@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 
 from qdrant_client import models
 
-from rag.encoders import DenseEncoder, SparseEncoder
-from rag.index import DENSE, SPARSE, Index
+from rag.storage.encoders import DenseEncoder, SparseEncoder
+from rag.storage.index import DENSE, SPARSE, Index
 
 
 @dataclass

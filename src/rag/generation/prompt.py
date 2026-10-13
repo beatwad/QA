@@ -1,8 +1,8 @@
 """Prompt assembly: system rules + numbered chunks (strongest first) + recent turns + question,
 kept under the LLM's context window."""
 
-from rag.chunking import TokenCounter
-from rag.retrieval import Hit
+from rag.indexing.chunking import TokenCounter
+from rag.search.retrieval import Hit
 
 NOT_FOUND = "NOT_FOUND"
 

@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from rag.chunking import chunk_document, make_token_counter
-from rag.documents import load_corpus
+from rag.indexing.chunking import chunk_document, make_token_counter
+from rag.indexing.documents import load_corpus
 
 pytestmark = pytest.mark.integration
 

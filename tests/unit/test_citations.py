@@ -1,4 +1,4 @@
-from rag.citations import extract_citations
+from rag.generation.citations import extract_citations
 
 from fakes import chunk_hit
 

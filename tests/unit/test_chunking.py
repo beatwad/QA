@@ -1,7 +1,7 @@
 from datetime import date
 
-from rag.chunking import chunk_document
-from rag.documents import Document, Paragraph
+from rag.indexing.chunking import chunk_document
+from rag.indexing.documents import Document, Paragraph
 
 
 def words(text: str) -> int:

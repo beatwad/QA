@@ -6,8 +6,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-from rag.chunking import chunk_document
-from rag.documents import load_corpus
+from rag.indexing.chunking import chunk_document
+from rag.indexing.documents import load_corpus
 
 DATA = Path(__file__).resolve().parents[2] / "data"
 

@@ -4,7 +4,7 @@ this function provides the necessary context."""
 
 import logging
 
-from rag.llm import LLM, complete
+from rag.generation.llm import LLM, complete
 
 log = logging.getLogger(__name__)
 

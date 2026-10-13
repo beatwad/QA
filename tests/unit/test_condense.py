@@ -1,4 +1,4 @@
-from rag.query import condense
+from rag.generation.query import condense
 
 from fakes import FakeLLM
 

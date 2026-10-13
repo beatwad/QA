@@ -17,11 +17,11 @@ def ingest(corpus: Path = Path("data/corpus"), reset: bool = False):
     """Sync the corpus into Qdrant (only changed docs are re-embedded)."""
     from qdrant_client import QdrantClient
 
-    from rag.chunking import make_token_counter
-    from rag.documents import load_corpus
-    from rag.encoders import BgeM3Encoder, Bm25Encoder
-    from rag.index import Index
-    from rag.ingest import DocumentUpdateService
+    from rag.indexing.chunking import make_token_counter
+    from rag.indexing.documents import load_corpus
+    from rag.storage.encoders import BgeM3Encoder, Bm25Encoder
+    from rag.storage.index import Index
+    from rag.indexing.ingest import DocumentUpdateService
 
     cfg = load_config()
     dense = BgeM3Encoder(cfg.models.embedder)

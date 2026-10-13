@@ -1,4 +1,4 @@
-from rag.prompt import PER_MESSAGE_OVERHEAD, SYSTEM, build_messages, format_chunk, is_not_found
+from rag.generation.prompt import PER_MESSAGE_OVERHEAD, SYSTEM, build_messages, format_chunk, is_not_found
 
 from fakes import chunk_hit, words
 

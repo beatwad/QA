@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from rag.retrieval import Hit
+from rag.search.retrieval import Hit
 
 
 class Reranker(Protocol):

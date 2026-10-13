@@ -1,8 +1,8 @@
 from datetime import date
 
 from rag.config import ChunkingConfig
-from rag.documents import Document, Paragraph
-from rag.ingest import content_hash, meta_hash
+from rag.indexing.documents import Document, Paragraph
+from rag.indexing.ingest import content_hash, meta_hash
 
 CHUNKING = ChunkingConfig(max_tokens=300, overlap=0.15)
 
