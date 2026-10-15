@@ -24,22 +24,33 @@ class Index:
         self.collection = collection
         self.dim = dim
 
-    def ensure_collection(self) -> None:
-        """Create the collection if it doesn't exist; an existing one is left as is.
+    def ensure_collection(self, embedder: str) -> None:
+        """Create the collection if it doesn't exist; an existing one is left as is,
+        but must have been built with the same `embedder`.
 
         - `dense`: bi-encoder vectors, cosine distance (HNSW index).
         - `sparse`: BM25 term weights; Qdrant applies IDF at search time.
         - Keyword payload indexes on `doc_id` (sync/delete filters) and `acl` (permission filter).
+        - Collection metadata `embedder`: the dense model the vectors come from.
         """
         if self.client.collection_exists(self.collection):
+            self.require_embedder(embedder)
             return
         self.client.create_collection(
             self.collection,
             vectors_config={DENSE: models.VectorParams(size=self.dim, distance=models.Distance.COSINE)},
             sparse_vectors_config={SPARSE: models.SparseVectorParams(modifier=models.Modifier.IDF)},
+            metadata={"embedder": embedder},
         )
         for field in ("doc_id", "acl"):
             self.client.create_payload_index(self.collection, field, models.PayloadSchemaType.KEYWORD)
+
+    def require_embedder(self, embedder: str) -> None:
+        """Deploy block: query vectors from a different model than the stored ones make cosine meaningless."""
+        stored = (self.client.get_collection(self.collection).config.metadata or {}).get("embedder")
+        if stored != embedder:
+            raise RuntimeError(f"collection {self.collection!r} was built with embedder {stored!r}, "
+                               f"config says {embedder!r}: re-index with `rag ingest --reset`")
 
     def drop(self) -> None:
         self.client.delete_collection(self.collection)

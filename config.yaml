@@ -43,3 +43,20 @@ postrank:
   dup_threshold: 0.95    # cosine; at or above -> dropped as a near-duplicate
   half_life_days: {confluence: 730, wiki: 730, gdrive: 365, ticket: 90, slack: 30}   # freshness halves after this age
   authority_prior: {official: 1.0, verified: 0.7, informal: 0.0}                     # multiplied by w_authority
+
+# Phase 9: fine-tune the dense bi-encoder with symmetric InfoNCE + mined hard negatives (rag train).
+# Afterwards set models.embedder to output_dir and re-index: rag ingest --reset
+train:
+  base_model: BAAI/bge-m3
+  output_dir: models/bge-m3-infonce
+  examples_per_source: 20000   # SQuAD, SberQuAD, MIRACL en, MIRACL ru (MIRACL has fewer)
+  mine_top_k: 30               # hard negative = a random non-gold paragraph from the base model's top-k
+  batch_size: 32               # queries per step; each brings a positive and a hard negative
+  epochs: 1
+  lr: 1.0e-5
+  temperature_lr: 1.0e-3       # log-temperature is one scalar; at the model's lr it would barely move
+  init_temperature: 0.07
+  warmup: 0.1                  # share of steps with a linearly rising lr
+  max_seq_length: 256          # tokens; corpus chunks are <= 300 embedder tokens, most far shorter
+  gradient_checkpointing: true # recompute activations in backward: less memory, ~20-30% slower
+  seed: 0

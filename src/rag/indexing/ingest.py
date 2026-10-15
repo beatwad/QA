@@ -59,7 +59,7 @@ class DocumentUpdateService:
         - both equal            -> nothing (unchanged)
         Docs in the index but not in `docs` have their chunks removed (deleted).
         """
-        self.index.ensure_collection()
+        self.index.ensure_collection(self.dense.name)
         stored = self.index.doc_hashes()
         report = SyncReport()
         for doc in docs:

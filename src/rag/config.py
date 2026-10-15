@@ -53,6 +53,22 @@ class PostrankConfig(BaseModel):
     authority_prior: dict[str, float]
 
 
+class TrainConfig(BaseModel):
+    base_model: str
+    output_dir: str
+    examples_per_source: int
+    mine_top_k: int
+    batch_size: int
+    epochs: int
+    lr: float
+    temperature_lr: float
+    init_temperature: float
+    warmup: float
+    max_seq_length: int
+    gradient_checkpointing: bool
+    seed: int
+
+
 class Config(BaseModel):
     qdrant: QdrantConfig
     llm: LLMConfig
@@ -61,6 +77,7 @@ class Config(BaseModel):
     retrieval: RetrievalConfig
     rerank: RerankConfig
     postrank: PostrankConfig
+    train: TrainConfig
 
 
 def load_config(path: Path = DEFAULT_PATH) -> Config:

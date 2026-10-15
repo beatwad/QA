@@ -63,7 +63,7 @@ def test_fused_hits_carry_both_branches(retriever):
 
 def test_missing_acl_is_never_returned(config, bge, bm25):
     index = Index(QdrantClient(config.qdrant.url), f"test_{uuid.uuid4().hex[:8]}", bge.dim)
-    index.ensure_collection()
+    index.ensure_collection(bge.name)
     try:
         text = "Nikola Tesla died on 7 January 1943."
         base = {"chunk_id": "x", "doc_id": "x", "text": text, "lang": "en"}

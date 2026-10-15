@@ -58,6 +58,7 @@ def eval_(limit: int = typer.Option(None, help="answerable questions per languag
     r = cfg.retrieval
     retriever = Retriever(Index(QdrantClient(cfg.qdrant.url), cfg.qdrant.collection, dense.dim), dense, Bm25Encoder(),
                           r.candidates, r.rrf_k, r.rrf_weights)
+    retriever.index.require_embedder(dense.name)
     evaluator = Evaluator(cfg, retriever, CrossEncoderReranker(cfg.models.reranker),
                           yaml.safe_load(users.read_text()), date.today())
     questions = sample([json.loads(line) for line in golden.read_text().splitlines()], limit)
@@ -66,6 +67,43 @@ def eval_(limit: int = typer.Option(None, help="answerable questions per languag
     typer.echo(format_report(retrieval, gate, cfg.rerank.gate_threshold))
     if out:
         out.write_text(json.dumps({"embedder": cfg.models.embedder, "retrieval": retrieval, "gate": gate}, indent=1))
+
+
+@app.command("eval-generation")
+def eval_generation(out: Path = Path("data/eval/generation.jsonl"), golden: Path = Path("data/golden.jsonl"),
+                    users: Path = Path("data/users.yaml")):
+    """Answer the golden `generation` subset with the real pipeline and dump it for an LLM judge."""
+    import json
+
+    import yaml
+    from qdrant_client import QdrantClient
+
+    from rag.eval.generation import RecordingLLM, run_generation
+    from rag.generation.llm import OpenAICompatLLM
+    from rag.indexing.chunking import make_token_counter
+    from rag.search.rerank import CrossEncoderReranker
+    from rag.search.retrieval import Retriever
+    from rag.serving.conversations import ConversationStore
+    from rag.serving.pipeline import Pipeline
+    from rag.storage.encoders import BgeM3Encoder, Bm25Encoder
+    from rag.storage.index import Index
+
+    _setup_logging()
+    cfg = load_config()
+    dense = BgeM3Encoder(cfg.models.embedder)
+    r = cfg.retrieval
+    retriever = Retriever(Index(QdrantClient(cfg.qdrant.url), cfg.qdrant.collection, dense.dim), dense, Bm25Encoder(),
+                          r.candidates, r.rrf_k, r.rrf_weights)
+    retriever.index.require_embedder(dense.name)
+    llm = RecordingLLM(OpenAICompatLLM(cfg.llm.base_url, cfg.llm.model))
+    pipeline = Pipeline(cfg, retriever, CrossEncoderReranker(cfg.models.reranker), llm,
+                        make_token_counter(cfg.llm.tokenizer), ConversationStore())
+    rows = run_generation(pipeline, llm, [json.loads(line) for line in golden.read_text().splitlines()],
+                          yaml.safe_load(users.read_text()))
+    out.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
+    statuses = [row["status"] for row in rows]
+    typer.echo(f"{len(rows)} questions -> {out}: "
+               + ", ".join(f"{s} {statuses.count(s)}" for s in sorted(set(statuses))))
 
 
 @app.command()
@@ -92,6 +130,7 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
     cfg = load_config()
     dense, sparse = BgeM3Encoder(cfg.models.embedder), Bm25Encoder()
     index = Index(QdrantClient(cfg.qdrant.url), cfg.qdrant.collection, dense.dim)
+    index.require_embedder(dense.name)  # deploy block: refuse to serve queries against another model's vectors
     service = DocumentUpdateService(index, dense, sparse, make_token_counter(cfg.models.embedder), cfg.chunking)
     r = cfg.retrieval
     pipeline = Pipeline(cfg, Retriever(index, dense, sparse, r.candidates, r.rrf_k, r.rrf_weights),
@@ -99,6 +138,16 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
                         make_token_counter(cfg.llm.tokenizer), ConversationStore())
     app_ = create_app(pipeline, Users.load(users), lambda: service.sync(load_corpus(corpus)))
     uvicorn.run(app_, host=host, port=port, log_config=None)
+
+
+@app.command()
+def train():
+    """Fine-tune the dense bi-encoder with InfoNCE (config `train`). To compare with the base model:
+    set models.embedder to the printed directory, `rag ingest --reset`, then `rag eval` vs data/eval/baseline.json."""
+    from rag.train.train import train as run
+
+    _setup_logging()
+    typer.echo(run(load_config().train))
 
 
 def _setup_logging(level: str = "INFO") -> None:
