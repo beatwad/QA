@@ -34,10 +34,14 @@ def rrf(ranked: dict[str, list[str]], k: int, weights: dict[str, float]) -> list
     return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))
 
 
-def acl_filter(groups: list[str]) -> models.Filter:
+def acl_filter(groups: list[str], langs: list[str] | None = None) -> models.Filter:
     """Chunk visible iff its `acl` shares a group with the user's groups.
-    A chunk with a missing or empty `acl` never matches (fail closed)."""
-    return models.Filter(must=[models.FieldCondition(key="acl", match=models.MatchAny(any=groups))])
+    A chunk with a missing or empty `acl` never matches (fail closed).
+    `langs` optionally restricts the search to chunks in those languages (used by the offline eval)."""
+    must = [models.FieldCondition(key="acl", match=models.MatchAny(any=groups))]
+    if langs:
+        must.append(models.FieldCondition(key="lang", match=models.MatchAny(any=langs)))
+    return models.Filter(must=must)
 
 
 class Retriever:
@@ -50,7 +54,7 @@ class Retriever:
         self.rrf_k = rrf_k
         self.weights = weights
 
-    def search_branch(self, branch: str, query: str, groups: list[str]) -> list[Hit]:
+    def search_branch(self, branch: str, query: str, groups: list[str], langs: list[str] | None = None) -> list[Hit]:
         """One branch on its own, best first. 
         A chunk is visible to a user only if its acl shares at least one group with that list.
         No groups -> nothing is visible."""
@@ -61,7 +65,7 @@ class Retriever:
             self.index.collection, 
             query=vector, 
             using=branch, 
-            query_filter=acl_filter(groups),
+            query_filter=acl_filter(groups, langs),
             limit=self.limit, 
             with_payload=True,
             with_vectors=[DENSE] if branch == DENSE else False,
@@ -70,7 +74,7 @@ class Retriever:
                     vector=p.vector[DENSE] if p.vector else None)
                 for rank, p in enumerate(points, start=1)]
 
-    def search(self, query: str, groups: list[str]) -> list[Hit]:
+    def search(self, query: str, groups: list[str], langs: list[str] | None = None) -> list[Hit]:
         """Both branches fused with RRF -> top `limit` candidates for the reranker.
 
         If one branch fails, the other one is served alone; only if both fail does this raise.
@@ -80,7 +84,7 @@ class Retriever:
         errors = []
         for branch in (DENSE, SPARSE):
             try:
-                hits = self.search_branch(branch, query, groups)
+                hits = self.search_branch(branch, query, groups, langs)
             except Exception as e:
                 logger.opt(exception=True).warning("{} branch failed, serving without it", branch)
                 errors.append(e)

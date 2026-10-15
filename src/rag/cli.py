@@ -35,6 +35,39 @@ def ingest(corpus: Path = Path("data/corpus"), reset: bool = False):
     typer.echo(f"points     {index.count()}")
 
 
+@app.command("eval")
+def eval_(limit: int = typer.Option(None, help="answerable questions per language (default: all)"),
+          out: Path = typer.Option(None, help="also write the numbers to this JSON file"),
+          golden: Path = Path("data/golden.jsonl"), users: Path = Path("data/users.yaml")):
+    """Offline metrics: Recall@5/10, MRR, NDCG@10 per stage and language pair, plus gate calibration."""
+    import json
+    from datetime import date
+
+    import yaml
+    from qdrant_client import QdrantClient
+
+    from rag.eval.runner import Evaluator, format_report, sample
+    from rag.search.rerank import CrossEncoderReranker
+    from rag.search.retrieval import Retriever
+    from rag.storage.encoders import BgeM3Encoder, Bm25Encoder
+    from rag.storage.index import Index
+
+    _setup_logging()
+    cfg = load_config()
+    dense = BgeM3Encoder(cfg.models.embedder)
+    r = cfg.retrieval
+    retriever = Retriever(Index(QdrantClient(cfg.qdrant.url), cfg.qdrant.collection, dense.dim), dense, Bm25Encoder(),
+                          r.candidates, r.rrf_k, r.rrf_weights)
+    evaluator = Evaluator(cfg, retriever, CrossEncoderReranker(cfg.models.reranker),
+                          yaml.safe_load(users.read_text()), date.today())
+    questions = sample([json.loads(line) for line in golden.read_text().splitlines()], limit)
+    retrieval, gate_scores = evaluator.retrieval(questions)
+    gate = evaluator.gate(questions, gate_scores)
+    typer.echo(format_report(retrieval, gate, cfg.rerank.gate_threshold))
+    if out:
+        out.write_text(json.dumps({"embedder": cfg.models.embedder, "retrieval": retrieval, "gate": gate}, indent=1))
+
+
 @app.command()
 def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/corpus"),
           users: Path = Path("data/users.yaml")):

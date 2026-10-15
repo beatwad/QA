@@ -98,7 +98,7 @@ class StubRetriever(Retriever):
                          weights={DENSE: 1.0, SPARSE: 1.0})
         self.broken = broken
 
-    def search_branch(self, branch, query, groups):
+    def search_branch(self, branch, query, groups, langs=None):
         if branch in self.broken:
             raise RuntimeError(f"{branch} down")
         return [Hit(chunk_id=f"{branch}-1", payload={}, ranks={branch: 1},

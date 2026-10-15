@@ -1,10 +1,12 @@
 """Post-ranking: business signals on top of the cross-encoder, then dedup + per-doc cap.
 
-final = sigmoid(ce) + w_f * freshness + w_a * authority - w_d * dup
+final = minmax(ce) + w_f * freshness + w_a * authority - w_d * dup
+minmax(ce) rescales the candidates' cross-encoder scores to 0..1 (best = 1, worst = 0), so the gap between
+a relevant and an off-topic chunk stays large even when the cross-encoder is unsure about all of them
+(a sigmoid would squash -6 and -11 to ~0 alike and let the business signals decide).
 The business weights are small on purpose: they reorder near-ties but can't lift an off-topic chunk.
 """
 
-import math
 from collections import Counter
 from datetime import date
 
@@ -28,12 +30,14 @@ def postrank(hits: list[Hit], cfg: PostrankConfig, today: date) -> list[Hit]:
     live = [h for h in hits if is_live(h.payload)]
     if not live:
         return []
+    lo, hi = min(h.ce_score for h in live), max(h.ce_score for h in live)
     base = []
     for h in live:
         p = h.payload
+        relevance = (h.ce_score - lo) / (hi - lo) if hi > lo else 1.0
         fresh = freshness(date.fromisoformat(p["updated_at"]), today, cfg.half_life_days[p["source"]])
         authority = cfg.authority_prior[p["authority"]]
-        base.append(1 / (1 + math.exp(-h.ce_score)) + cfg.w_freshness * fresh + cfg.w_authority * authority)
+        base.append(relevance + cfg.w_freshness * fresh + cfg.w_authority * authority)
 
     vectors = np.asarray([h.vector for h in live])  # L2-normalized bge-m3 vectors from the index
     sims = vectors @ vectors.T

@@ -32,8 +32,8 @@ rerank:
                          # calibrated on the golden set: blocks all unanswerable/ACL questions, passes ~97% answerable
 
 # Business signals on top of relevance:
-#   final = sigmoid(ce) + w_freshness * freshness + w_authority * authority - w_dup * similarity_to_already_picked
-# Weights are small on purpose: they reorder near-ties but can't lift an off-topic chunk (sigmoid(ce) spans 0..1)
+#   final = minmax(ce) + w_freshness * freshness + w_authority * authority - w_dup * similarity_to_already_picked
+# Weights are small on purpose: they reorder near-ties but can't lift an off-topic chunk (minmax(ce) spans 0..1 over the candidates)
 postrank:
   final_k: 8             # chunks sent to the LLM
   max_per_doc: 2         # so one long document can't take every slot

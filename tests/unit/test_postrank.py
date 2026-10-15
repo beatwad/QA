@@ -27,6 +27,12 @@ def orthogonal(hits):
     return hits
 
 
+def filler():
+    """A clearly irrelevant candidate. Scores are min-max normalized over the candidates, so tests with
+    only near-tied chunks need one: it gives the list the score spread a real 20-candidate list has."""
+    return hit("filler", -5.0)
+
+
 def ids(hits):
     return [h.chunk_id for h in hits]
 
@@ -45,8 +51,9 @@ def test_superseded_and_archived_are_excluded():
 
 def test_informal_copy_ranks_below_official():
     hits = [hit("slack", 5.2, source="slack", authority="informal", updated="2026-09-30"),
-            hit("official", 5.0, source="confluence", authority="official", updated="2024-01-01")]
-    assert ids(postrank(orthogonal(hits), CFG, TODAY)) == ["official", "slack"]
+            hit("official", 5.0, source="confluence", authority="official", updated="2024-01-01"),
+            filler()]
+    assert ids(postrank(orthogonal(hits), CFG, TODAY)) == ["official", "slack", "filler"]
 
 
 def test_freshness_reorders_near_ties():
@@ -73,11 +80,11 @@ def test_exact_duplicate_is_dropped():
 
 
 def test_near_duplicate_is_penalized():
-    hits = [hit("a", 5.0), hit("a2", 5.0), hit("b", 4.0)]
-    for h, v in zip(hits, ([1.0, 0.0], [0.9, 0.436], [0.0, 1.0])):  # sim(a, a2) = 0.9 < dup_threshold
-        h.vector = v
+    hits = [hit("a", 5.0), hit("a2", 5.0), hit("b", 4.0), filler()]
+    for h, v in zip(hits, ([1.0, 0.0, 0.0], [0.9, 0.436, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0])):
+        h.vector = v  # sim(a, a2) = 0.9 < dup_threshold
     # b scores lower on its own, but a2 loses w_dup * 0.9 for repeating a
-    assert ids(postrank(hits, CFG, TODAY)) == ["a", "b", "a2"]
+    assert ids(postrank(hits, CFG, TODAY)) == ["a", "b", "a2", "filler"]
 
 
 def test_final_k():
