@@ -119,6 +119,7 @@ Chunking: one paragraph = one chunk; a paragraph over 300 tokens is split into s
 ```
 config.yaml                  every tunable (models, chunking, retrieval, rerank, postrank, train)
 docker-compose.yml           Qdrant + vLLM
+run.sh                       start everything: compose, API and GUI
 scripts/prepare_corpus.py    build data/ from XQuAD (deterministic, seed 42)
 data/
   corpus/<doc_id>.json       document content (48 articles × EN/RU, plus old/dup/slack variants)
@@ -186,9 +187,39 @@ To regenerate `data/` from scratch: `uv run python scripts/prepare_corpus.py` (d
 
 ## Run
 
+### One command (API + GUI)
+
 ```bash
-uv run rag serve               # http://127.0.0.1:8080, models load at startup
+./run.sh
 ```
+
+Starts Qdrant and vLLM (`docker compose up -d`), waits until both respond, then starts the API (http://127.0.0.1:8080, models load at startup) and the Streamlit GUI (http://localhost:8501). Ctrl+C stops the API and the GUI; the containers keep running (`docker compose down` stops them). The corpus must be indexed first (`uv run rag ingest --reset`, see Install).
+
+In the GUI, log in by typing a user name (no password, see the users below). Admins (`ops`) also get a "Sync database" button in the sidebar.
+
+Each part can also be started on its own:
+
+```bash
+uv run rag serve                           # API only
+uv run streamlit run src/rag/ui/app.py     # GUI only; the API must be up. RAG_API_URL overrides the API address
+```
+
+### Example questions
+
+| Log in as | Ask | Expect |
+|-----------|-----|--------|
+| `alice` | How many points did the Panthers defense surrender? | 308, with a citation |
+| `alice` | What actor did sign language for the National Anthem at Superbowl 50? | Marlee Matlin |
+| `alice` | Сколько очков уступила защита Пэнтерс? | 308, answered in Russian |
+| `alice` | What year did Tesla die? then What was named after him in 1960? | 1943 (the current document, not the superseded one); the follow-up is rewritten using the first question; answer: the SI unit of magnetic flux density |
+| `alice` | How many vacation days do new employees get per year? | `not_found`, no invented answer |
+| `alice` | In what decade did ABC finish transitioning to color? | `not_found`: the document is restricted |
+| `root` | In what decade did ABC finish transitioning to color? | 1970s |
+| `ops` | (sidebar) Sync database | counts per category |
+
+More questions with known answers are in [data/golden.jsonl](data/golden.jsonl), e.g. `grep '"kind": "acl"' data/golden.jsonl`.
+
+### API (curl)
 
 Ask a question (`-N` keeps the stream unbuffered):
 

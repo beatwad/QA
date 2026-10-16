@@ -1,4 +1,4 @@
-"""FastAPI app: POST /v1/ask (SSE stream), POST /v1/admin/sync (admins only), GET /health."""
+"""FastAPI app: POST /v1/ask (SSE stream), POST /v1/admin/sync (admins only), GET /v1/me, GET /health."""
 
 import json
 from collections.abc import Callable, Iterator
@@ -32,6 +32,10 @@ def create_app(pipeline: Pipeline, users: Users, sync: Callable[[], object]) -> 
         if groups is None:
             raise HTTPException(401, "unknown user")
         return x_user, groups
+
+    @app.get("/v1/me")
+    def me(who: tuple[str, list[str]] = Depends(current_user)):
+        return {"user": who[0], "groups": who[1]}
 
     @app.post("/v1/ask")
     def ask(req: AskRequest, who: tuple[str, list[str]] = Depends(current_user)):

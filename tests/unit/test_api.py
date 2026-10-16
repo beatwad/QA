@@ -41,6 +41,12 @@ def test_missing_or_unknown_user_is_refused():
     assert c.post("/v1/ask", json={"question": "q"}, headers={"X-User": "mallory"}).status_code == 401
 
 
+def test_me_returns_user_and_groups():
+    c = client()
+    assert c.get("/v1/me").status_code == 401
+    assert c.get("/v1/me", headers={"X-User": "ops"}).json() == {"user": "ops", "groups": ["all-employees", "admin"]}
+
+
 def test_ask_streams_sse_events_in_order():
     resp = client().post("/v1/ask", json={"question": "What year did Tesla die?"}, headers={"X-User": "alice"})
     assert resp.status_code == 200
