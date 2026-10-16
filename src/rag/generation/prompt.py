@@ -8,10 +8,14 @@ NOT_FOUND = "NOT_FOUND"
 
 SYSTEM = f"""You answer employees' questions using ONLY the numbered context passages.
 Rules:
-- Every claim must cite the passage it comes from as [n], e.g. [1] or [2][3].
-- If the passages do not contain the answer, reply with exactly {NOT_FOUND} and nothing else.
-- Answer in the same language as the question, even if the passages are in another language.
+- If any passage contains the answer, give it, even if the passage is in another language than the question or repeats another passage.
+- Write the answer as plain text and put the passage number after each claim as [n], e.g. [1] or [2][3]. Never reply with only [n] markers.
+- Reply with exactly {NOT_FOUND} and nothing else only if NO passage contains the answer.
+- Write the whole answer in the language of the question, even if the passages are in another language: translate names and terms from the passages instead of copying them.
 - Be concise."""
+
+# appended to the user message when the first answer came out in the wrong language
+LANGUAGE_REMINDER = {"en": "Write the whole answer in English only.", "ru": "Напиши весь ответ только на русском языке."}
 
 # chat-template tokens around each message (user doesn't see them)
 # used to avoid token count under-estimation which can lead to rejection from vLLM

@@ -8,6 +8,7 @@ Events (type, data), in order:
 """
 
 import json
+import re
 import uuid
 from collections.abc import Callable, Iterator
 from dataclasses import asdict
@@ -20,9 +21,9 @@ from rag.generation.citations import SNIPPET_CHARS, extract_citations
 from rag.config import Config
 from rag.serving.conversations import ConversationStore
 from rag.lang import detect_lang
-from rag.generation.llm import LLM
+from rag.generation.llm import LLM, complete
 from rag.search.postrank import postrank
-from rag.generation.prompt import NOT_FOUND, build_messages
+from rag.generation.prompt import LANGUAGE_REMINDER, NOT_FOUND, build_messages
 from rag.generation.query import condense
 from rag.search.rerank import Reranker, confident, rerank
 from rag.search.retrieval import Hit, Retriever
@@ -91,8 +92,23 @@ class Pipeline:
                 yield "token", {"text": text}
         except Exception:
             logger.opt(exception=True).warning("LLM failed, returning ranked links")
-            links = [_link(i, h) for i, h in enumerate(final, start=1)]
-            return "llm_unavailable", MESSAGES["llm_unavailable"][lang], links
+            return _links_fallback(final, lang)
+        problem = _problem(raw, lang)
+        if problem == "language":
+            # the model copied text from a passage in the other language: ask once more, with a reminder
+            logger.warning("LLM answered in the wrong language, retrying")
+            reminded = [*messages[:-1], {**messages[-1], "content": messages[-1]["content"] + "\n\n" + LANGUAGE_REMINDER[lang]}]
+            try:
+                raw = complete(self.llm, reminded, self.cfg.llm.max_tokens, self.cfg.llm.temperature)
+            except Exception:
+                logger.opt(exception=True).warning("LLM retry failed, returning ranked links")
+                return _links_fallback(final, lang)
+            problem = _problem(raw, lang)
+        if problem == "not_found":  # the start of the answer may have been streamed already; `result` supersedes it
+            return "not_found", MESSAGES["not_found"][lang], []
+        if problem:
+            logger.warning("LLM answer unusable ({}), returning ranked links", problem)
+            return _links_fallback(final, lang)
         answer, cites = extract_citations(raw, used)
         return "answered", answer, [asdict(c) for c in cites]
 
@@ -124,6 +140,29 @@ def _hold_back_sentinel(pieces: Iterator[str]) -> Iterator[str | None]:
     # In case when the answer is shorter than NOT_FOUND length
     if buffer:
         yield buffer
+
+
+def _problem(raw: str, lang: str) -> str | None:
+    """What is wrong with the model's raw answer, if anything: "not_found" (the sentinel anywhere in it),
+    "empty" (only [n] markers, no words), "language" (not in the question's language)."""
+    if NOT_FOUND in raw:
+        return "not_found"
+    text = re.sub(r"\[[\d,\s]+\]", "", raw)
+    if not re.search(r"\w", text):
+        return "empty"
+    # English answers contain no Cyrillic. A Russian answer may be Latin-only (a name, a term), so only
+    # a whole English sentence counts as the wrong language.
+    if lang == "en":
+        wrong = bool(re.search("[а-яё]", text, re.IGNORECASE))
+    else:
+        wrong = detect_lang(text) == "en" and len(text.split()) >= 4
+    if wrong:
+        return "language"
+    return None
+
+
+def _links_fallback(final: list[Hit], lang: str) -> tuple[str, str, list[dict]]:
+    return "llm_unavailable", MESSAGES["llm_unavailable"][lang], [_link(i, h) for i, h in enumerate(final, start=1)]
 
 
 def _link(n: int, hit: Hit) -> dict:

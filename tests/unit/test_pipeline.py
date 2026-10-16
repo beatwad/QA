@@ -58,6 +58,44 @@ def test_answer_starting_like_the_sentinel_is_streamed_intact():
     assert "".join(d["text"] for k, d in events if k == "token") == "NO. Tesla died in 1943 [1]."
 
 
+@pytest.mark.parametrize("reply", ["[1] [2] NOT_FOUND", "Two-thirds of the population. Therefore: NOT_FOUND"])
+def test_sentinel_after_other_text_is_not_found(reply):
+    out = final(run(make(FakeLLM(reply))))
+    assert out == {"status": "not_found", "answer": MESSAGES["not_found"]["en"], "citations": []}
+
+
+@pytest.mark.parametrize("reply", ["[1] [2]", "[1, 2]", " [1]\n"])
+def test_answer_without_text_returns_ranked_links(reply):
+    out = final(run(make(FakeLLM(reply))))
+    assert out["status"] == "llm_unavailable"
+    assert [c["doc_id"] for c in out["citations"]] == ["d1", "d2"]
+
+
+def test_wrong_language_answer_is_retried_with_a_reminder():
+    llm = FakeLLM(["Тесла умер в 1943 году [1].", "Tesla died in 1943 [1]."])
+    out = final(run(make(llm)))
+    assert out["status"] == "answered" and out["answer"] == "Tesla died in 1943 [1]."
+    assert len(llm.calls) == 2
+    assert llm.calls[1][-1]["content"].endswith("Write the whole answer in English only.")
+
+
+def test_still_wrong_language_after_the_retry_returns_ranked_links():
+    out = final(run(make(FakeLLM(["Тесла умер в 1943 году [1].", "Тесла умер в 1943 [1]."]))))
+    assert out["status"] == "llm_unavailable"
+
+
+def test_russian_question_with_a_latin_only_name_is_not_retried():
+    llm = FakeLLM("Dolby Digital [1]")
+    out = final(run(make(llm), question="Какой звук поддерживает Sky Box?"))
+    assert out["status"] == "answered" and len(llm.calls) == 1
+
+
+def test_russian_question_answered_in_an_english_sentence_is_retried():
+    llm = FakeLLM(["Tesla died in 1943 [1].", "Тесла умер в 1943 году [1]."])
+    out = final(run(make(llm), question="В каком году умер Тесла?"))
+    assert out["answer"] == "Тесла умер в 1943 году [1]." and len(llm.calls) == 2
+
+
 def test_llm_down_returns_ranked_links():
     out = final(run(make(FakeLLM(error=ConnectionError("vLLM down")))))
     assert out["status"] == "llm_unavailable"
