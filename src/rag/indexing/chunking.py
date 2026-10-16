@@ -23,9 +23,12 @@ class Chunk(BaseModel):
 
 def make_token_counter(model_name: str) -> TokenCounter:
     """Counts tokens with the embedding model's own tokenizer."""
+    from pathlib import Path
+
     from tokenizers import Tokenizer
 
-    tok = Tokenizer.from_pretrained(model_name)
+    local = Path(model_name) / "tokenizer.json"  # a fine-tuned model saved to disk
+    tok = Tokenizer.from_file(str(local)) if local.exists() else Tokenizer.from_pretrained(model_name)
     return lambda text: len(tok.encode(text, add_special_tokens=False).ids)
 
 

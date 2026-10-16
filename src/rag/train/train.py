@@ -41,7 +41,7 @@ def train(cfg: TrainConfig, log_every: int = 50) -> str:
     scheduler = get_linear_schedule_with_warmup(optimizer, int(cfg.warmup * steps), steps)
 
     def embed(texts: list[str]):
-        features = {k: v.to("cuda") for k, v in model.preprocess(texts).items()}
+        features = {k: v.to("cuda") if hasattr(v, "to") else v for k, v in model.preprocess(texts).items()}  # "modality" is a str
         return F.normalize(model(features)["sentence_embedding"].float(), dim=-1)
 
     step = 0

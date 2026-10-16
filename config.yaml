@@ -12,7 +12,7 @@ llm:
   history_turns: 6       # number of the most recent messages (question or answer) used for condensation and the prompt
 
 models:
-  embedder: BAAI/bge-m3
+  embedder: models/bge-m3-infonce
   reranker: BAAI/bge-reranker-v2-m3
 
 chunking:
