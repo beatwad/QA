@@ -111,6 +111,7 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
           users: Path = Path("data/users.yaml")):
     """Run the API (models load at startup)."""
     import uvicorn
+    import yaml
     from qdrant_client import QdrantClient
 
     from rag.serving.api import create_app
@@ -121,6 +122,7 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
     from rag.storage.encoders import BgeM3Encoder, Bm25Encoder
     from rag.storage.index import Index
     from rag.indexing.ingest import DocumentUpdateService
+    from rag.indexing.importer import Importer, fetch_page
     from rag.generation.llm import OpenAICompatLLM
     from rag.serving.pipeline import Pipeline
     from rag.search.rerank import CrossEncoderReranker
@@ -136,7 +138,17 @@ def serve(host: str = "127.0.0.1", port: int = 8080, corpus: Path = Path("data/c
     pipeline = Pipeline(cfg, Retriever(index, dense, sparse, r.candidates, r.rrf_k, r.rrf_weights),
                         CrossEncoderReranker(cfg.models.reranker), OpenAICompatLLM(cfg.llm.base_url, cfg.llm.model),
                         make_token_counter(cfg.llm.tokenizer), ConversationStore())
-    app_ = create_app(pipeline, Users.load(users), lambda: service.sync(load_corpus(corpus)))
+    def sync():
+        return service.sync(load_corpus(corpus))
+
+    def near_duplicates(paragraphs: list[str], doc_id: str) -> list[bool]:
+        vectors = dense.encode_documents(paragraphs)
+        return [index.nearest_score(v, doc_id) >= cfg.postrank.dup_threshold for v in vectors]
+
+    groups = sorted({g for gs in yaml.safe_load(users.read_text()).values() for g in gs})
+    importer = Importer(corpus, fetch_page, near_duplicates, sync, groups,
+                        sorted(cfg.postrank.half_life_days), sorted(cfg.postrank.authority_prior))
+    app_ = create_app(pipeline, Users.load(users), sync, importer)
     uvicorn.run(app_, host=host, port=port, log_config=None)
 
 

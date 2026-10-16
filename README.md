@@ -141,6 +141,7 @@ Source modules ([src/rag/](src/rag/)):
 | Indexing | [indexing/documents.py](src/rag/indexing/documents.py) | `Document` model; joins content JSON with `meta.yaml` |
 | | [indexing/chunking.py](src/rag/indexing/chunking.py) | Paragraph → chunk(s) with sentence windows and overlap |
 | | [indexing/ingest.py](src/rag/indexing/ingest.py) | Hash-based incremental sync (`DocumentUpdateService`) |
+| | [indexing/importer.py](src/rag/indexing/importer.py) | Admin web-page import: download (Wikipedia API / trafilatura), clean, dedupe, write corpus files, sync |
 | Storage | [storage/encoders.py](src/rag/storage/encoders.py) | `BgeM3Encoder` (dense), `Bm25Encoder` (sparse) |
 | | [storage/index.py](src/rag/storage/index.py) | Qdrant wrapper: collection, upsert, delete, payload update, embedder guard |
 | Search | [search/retrieval.py](src/rag/search/retrieval.py) | ACL-filtered dense + sparse search, RRF fusion, branch fallback |
@@ -151,9 +152,10 @@ Source modules ([src/rag/](src/rag/)):
 | | [generation/llm.py](src/rag/generation/llm.py) | Streaming client for vLLM's OpenAI-compatible API |
 | | [generation/citations.py](src/rag/generation/citations.py) | `[n]` → source mapping |
 | Serving | [serving/pipeline.py](src/rag/serving/pipeline.py) | Orchestrates stages 2–9, emits events, fallbacks |
-| | [serving/api.py](src/rag/serving/api.py) | FastAPI: `/v1/ask` (SSE), `/v1/admin/sync`, `/health` |
+| | [serving/api.py](src/rag/serving/api.py) | FastAPI: `/v1/ask` (SSE), `/v1/me`, `/v1/admin/sync`, `/v1/admin/import`, `/health` |
 | | [serving/auth.py](src/rag/serving/auth.py) | `X-User` → groups, fail closed |
 | | [serving/conversations.py](src/rag/serving/conversations.py) | In-memory history keyed by (user, conversation) |
+| UI | [ui/app.py](src/rag/ui/app.py) | Streamlit GUI: login, chat with citations, admin sync and web-page import |
 | Eval | [eval/runner.py](src/rag/eval/runner.py) | Per-stage Recall@5/10, MRR, NDCG@10 and gate calibration |
 | | [eval/metrics.py](src/rag/eval/metrics.py) | Metric functions over graded relevance |
 | | [eval/generation.py](src/rag/eval/generation.py) | Dumps pipeline answers + exact prompts for an LLM judge |
@@ -251,9 +253,14 @@ Follow-ups: pass the returned `conversation_id` back in the request body.
 |----------|-----|---------|
 | `POST /v1/ask` | any known user | Stream an answer |
 | `POST /v1/admin/sync` | group `admin` (user `ops`) | Re-sync `data/corpus` into the index; returns counts per category |
+| `GET /v1/admin/import/options` | admin | Groups, sources and authorities the import form offers |
+| `POST /v1/admin/import` | admin | Download a web page into the corpus and sync (see below) |
+| `GET /v1/me` | any known user | The caller's groups |
 | `GET /health` | anyone | Liveness |
 
 Users in [data/users.yaml](data/users.yaml): `alice` (all-employees), `bob` (+research), `hana` (+hr-team), `root` (research + hr-team, used by eval), `ops` (+admin). A document restricted to `hr-team` is invisible to `alice`: she gets `not_found`, not a leak.
+
+**Importing a web page** (admin): in the GUI, open "Import a web page", enter a URL and the ACL groups, source and authority (title and language are optional overrides). [indexing/importer.py](src/rag/indexing/importer.py) downloads the text (Wikipedia via its API, other pages via trafilatura), keeps one paragraph per line, drops headings, fragments under 60 characters and repeated paragraphs, and skips paragraphs that are near-duplicates (cosine ≥ `postrank.dup_threshold`) of other indexed documents. It then writes `data/corpus/<doc_id>.json`, adds the entry to `meta.yaml` and syncs. The `doc_id` is derived from the URL, so importing the same URL again updates that document. The server downloads whatever URL the admin gives it, so keep this admin-only.
 
 **Updating documents**: edit `data/corpus/*.json` or `meta.yaml`, then `curl -X POST localhost:8080/v1/admin/sync -H 'X-User: ops'` (or `uv run rag ingest`).
 

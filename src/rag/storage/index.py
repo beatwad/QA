@@ -85,6 +85,14 @@ class Index:
                                       with_payload=["chunk_id"], with_vectors=[DENSE])
         return {p.payload["chunk_id"]: p.vector[DENSE] for p in points}
 
+    def nearest_score(self, vector: list[float], exclude_doc_id: str) -> float:
+        """Cosine similarity of the closest chunk outside `exclude_doc_id` (0.0 if there is none)."""
+        if not self.client.collection_exists(self.collection):
+            return 0.0
+        flt = models.Filter(must_not=[models.FieldCondition(key="doc_id", match=models.MatchValue(value=exclude_doc_id))])
+        hits = self.client.query_points(self.collection, query=vector, using=DENSE, query_filter=flt, limit=1).points
+        return hits[0].score if hits else 0.0
+
     def doc_hashes(self) -> dict[str, tuple[str, str]]:
         """doc_id -> (content_hash, meta_hash), read back from the stored points."""
         out, offset = {}, None

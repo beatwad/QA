@@ -81,6 +81,36 @@ def sync_panel() -> None:
             st.sidebar.error(f"Sync failed ({resp.status_code}): {resp.text}")
 
 
+def import_panel() -> None:
+    headers = {"X-User": st.session_state.user}
+    with st.expander("Import a web page"):
+        try:
+            options = requests.get(f"{API}/v1/admin/import/options", headers=headers, timeout=10).json()
+        except requests.RequestException as e:
+            st.error(f"Cannot load import options: {e}")
+            return
+        with st.form("import"):
+            url = st.text_input("URL")
+            acl = st.multiselect("ACL groups (who can see it)", options["groups"], default=["all-employees"])
+            source = st.selectbox("Source", options["sources"], index=options["sources"].index("wiki"))
+            authority = st.selectbox("Authority", options["authorities"], index=options["authorities"].index("official"))
+            title = st.text_input("Title (default: the page title)")
+            lang = st.selectbox("Language (default: detected)", ["", "en", "ru"])
+            submitted = st.form_submit_button("Import and sync")
+        if submitted:
+            with st.spinner("Downloading, embedding, syncing..."):
+                resp = requests.post(f"{API}/v1/admin/import", headers=headers, timeout=3600, json={
+                    "url": url, "acl": acl, "source": source, "authority": authority,
+                    "title": title or None, "lang": lang or None})
+            if resp.ok:
+                r = resp.json()
+                st.success(f"Imported '{r['title']}' ({r['lang']}) as {r['doc_id']}: {r['paragraphs']} paragraphs, "
+                           f"{r['skipped_duplicates']} duplicates skipped. Sync: "
+                           + ", ".join(f"{k}: {v}" for k, v in r["sync"].items()))
+            else:
+                st.error(f"Import failed ({resp.status_code}): {resp.json().get('detail', resp.text)}")
+
+
 st.set_page_config(page_title="RAG Q&A bot")
 st.markdown(
     "<style>[data-testid='stBottom'] > div {padding-bottom: 3rem;}</style>",
@@ -108,6 +138,8 @@ if ADMIN_GROUP in st.session_state.groups:
     sync_panel()
 
 st.title("RAG Q&A bot")
+if ADMIN_GROUP in st.session_state.groups:
+    import_panel()
 for m in st.session_state.messages:
     with st.chat_message(m["role"]):
         st.write(m["content"])

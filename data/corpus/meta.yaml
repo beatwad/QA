@@ -1252,3 +1252,14 @@
   authority: verified
   status: active
   superseded_by: null
+- doc_id: en-wikipedia-org-wiki-nikola-tesla
+  title: Nikola Tesla
+  lang: en
+  source: wiki
+  url: https://en.wikipedia.org/wiki/Nikola_Tesla
+  acl:
+  - all-employees
+  updated_at: 2026-10-16
+  authority: official
+  status: active
+  superseded_by: null
